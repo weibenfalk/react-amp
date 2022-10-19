@@ -19,11 +19,11 @@ const SpectrumAnalyser = ({ analyser, dataArray, bufferLength }: Props) => {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-    canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+    canvasCtx.lineWidth = 1;
+    canvasCtx.strokeStyle = '#fff';
 
     canvasCtx.beginPath();
 
@@ -51,13 +51,12 @@ const SpectrumAnalyser = ({ analyser, dataArray, bufferLength }: Props) => {
   };
 
   React.useEffect(() => {
-    console.log('DRAWING!!!');
     draw();
   }, [analyser, dataArray, bufferLength]);
 
   if (!analyser || !dataArray) return null;
 
-  return <canvas ref={canvasRef} />;
+  return <canvas width={77} height={14} ref={canvasRef} />;
 };
 
 export default SpectrumAnalyser;
