@@ -17,3 +17,5 @@ export const SpectrumAnalyserWrapper = styled.div`
   top: 45px;
   left: 24px;
 `;
+
+export const ButtonGroupWrapper = styled.div``;
