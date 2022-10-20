@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  --duration: 10s;
+  --duration: 15s;
 
   display: flex;
   overflow: hidden;
@@ -25,8 +25,8 @@ export const Wrapper = styled.div`
 
   .container {
     display: flex;
-    gap: 10px;
-    animation: scroll var(--duration) steps(50, end) infinite;
+    gap: 5px;
+    animation: scroll var(--duration) steps(60, end) infinite;
 
     @keyframes scroll {
       0% {
