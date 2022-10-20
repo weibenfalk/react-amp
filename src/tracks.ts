@@ -1,22 +1,30 @@
 export const tracks = [
   {
     artist: 'Weibenfalk',
-    title: 'Ändå',
-    file: '2-Anda-Weibenfalk.mp3'
+    title: 'Still',
+    file: '2-Anda-Weibenfalk.mp3',
+    sampleRate: 44,
+    bitRate: 320
   },
   {
     artist: 'Weibenfalk',
-    title: 'Överbord',
-    file: 'overbord-test-2022.mp3'
+    title: 'Overboard',
+    file: 'overbord-test-2022.mp3',
+    sampleRate: 44,
+    bitRate: 320
   },
   {
     artist: 'Weibenfalk',
-    title: 'Tomma Hjärtan',
-    file: 'tomma-hjartan-final.mp3'
+    title: 'Empty Hearts',
+    file: 'tomma-hjartan-final.mp3',
+    sampleRate: 44,
+    bitRate: 320
   },
   {
     artist: 'Weibenfalk',
-    title: 'Vild Själ',
-    file: 'weibenfalk-vild-sjal.mp3'
+    title: 'Wild Soul',
+    file: 'weibenfalk-vild-sjal.mp3',
+    sampleRate: 44,
+    bitRate: 320
   }
 ];

@@ -23,3 +23,17 @@ export const ButtonGroupWrapper = styled.div`
   top: 88px;
   left: 16px;
 `;
+
+export const TextDisplayWrapper = styled.div`
+  position: absolute;
+  top: 25px;
+  left: 112px;
+`;
+
+export const FrequenciesWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  gap: 31px;
+  top: 41px;
+  left: 112px;
+`;

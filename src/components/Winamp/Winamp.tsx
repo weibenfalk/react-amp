@@ -2,6 +2,7 @@ import React from 'react';
 // Components
 import SpectrumAnalyser from '../SpectrumAnalyser/SpectrumAnalyser';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import TextDisplay from 'components/TextDisplay/TextDisplay';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -10,18 +11,24 @@ import { tracks } from 'tracks';
 // Background Image
 import BGImage from 'assets/main.png';
 // Styles
-import { Wrapper, SpectrumAnalyserWrapper, ButtonGroupWrapper } from './Winamp.styles';
+import {
+  Wrapper,
+  SpectrumAnalyserWrapper,
+  ButtonGroupWrapper,
+  TextDisplayWrapper,
+  FrequenciesWrapper
+} from './Winamp.styles';
 
 const Winamp = () => {
   const audioRef = React.useRef<HTMLMediaElement>(null);
 
+  const [currentTrack, setCurrentTrack] = React.useState(tracks[0]);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isPaused, setIsPaused] = React.useState(false);
 
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
 
-  const [currentTrack, setCurrentTrack] = React.useState(tracks[0]);
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
 
   const handlePlay = () => {
@@ -88,6 +95,13 @@ const Winamp = () => {
           />
         </SpectrumAnalyserWrapper>
       ) : null}
+      <TextDisplayWrapper>
+        <TextDisplay isScrolling text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
+      </TextDisplayWrapper>
+      {/* <FrequenciesWrapper>
+        <TextDisplay text={currentTrack.bitRate.toString()} />
+        <TextDisplay text={currentTrack.sampleRate.toString()} />
+      </FrequenciesWrapper> */}
     </Wrapper>
   );
 };

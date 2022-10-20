@@ -16,13 +16,12 @@ export const useCreateAnalyser = (context?: AudioContext, source?: MediaElementA
     analyser.current.fftSize = 512;
 
     source.connect(analyser.current);
-    // source.connect(context.destination);
 
     bufferLength.current = analyser.current.frequencyBinCount;
     dataArray.current = new Uint8Array(bufferLength.current);
     analyser.current.getByteTimeDomainData(dataArray.current);
 
-    source?.connect(analyser.current);
+    source.connect(analyser.current);
   }
 
   return { analyser: analyser.current, bufferLength: bufferLength.current, dataArray: dataArray.current };

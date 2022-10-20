@@ -11,9 +11,7 @@ export const useCreateAudio = (audioRef: React.RefObject<HTMLMediaElement>) => {
       source.current.connect(context.current.destination);
     }
 
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
+    if (audioRef.current) audioRef.current.play();
   };
 
   const stop = () => {
@@ -24,9 +22,7 @@ export const useCreateAudio = (audioRef: React.RefObject<HTMLMediaElement>) => {
   };
 
   const pause = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
+    if (audioRef.current) audioRef.current.pause();
   };
 
   return { play, stop, pause, context: context.current, source: source.current };
