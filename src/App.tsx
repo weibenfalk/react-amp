@@ -3,8 +3,7 @@ import Winamp from './components/Winamp/Winamp';
 
 const App = () => {
   return (
-    <div className='App'>
-      <div>App</div>
+    <div>
       <Winamp />
     </div>
   );

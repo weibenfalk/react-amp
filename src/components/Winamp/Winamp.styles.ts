@@ -18,4 +18,8 @@ export const SpectrumAnalyserWrapper = styled.div`
   left: 24px;
 `;
 
-export const ButtonGroupWrapper = styled.div``;
+export const ButtonGroupWrapper = styled.div`
+  position: absolute;
+  top: 88px;
+  left: 16px;
+`;
