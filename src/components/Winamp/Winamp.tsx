@@ -15,33 +15,52 @@ import { Wrapper, SpectrumAnalyserWrapper, ButtonGroupWrapper } from './Winamp.s
 const Winamp = () => {
   const audioRef = React.useRef<HTMLMediaElement>(null);
 
-  const { context, source, play, stop } = useCreateAudio(audioRef);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isPaused, setIsPaused] = React.useState(false);
+
+  const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
 
   const [currentTrack, setCurrentTrack] = React.useState(tracks[0]);
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
 
-  const handlePreviousTrack = () => {
-    // If we haven't reached the start of the tracklist, do nothing
-    if (trackNr <= 0) return;
-    // Change track
-    setCurrentTrack(tracks[trackNr - 1]);
-    audioRef.current?.load();
-
-    if (context?.state === 'running') {
-      audioRef.current?.play();
-    }
+  const handlePlay = () => {
+    play();
+    // If we're already playing a track, rewind to start of song when pressing play
+    if (isPlaying && audioRef.current) audioRef.current.currentTime = 0;
+    setIsPlaying(true);
   };
 
-  const handleNextTrack = () => {
-    // If we've reached the end of the tracklist, do nothing
-    if (trackNr >= tracks.length - 1) return;
-    // Change track
-    setCurrentTrack(tracks[trackNr + 1]);
-    audioRef.current?.load();
+  const handleStop = () => {
+    setIsPlaying(false);
+    stop();
+  };
 
-    if (context?.state === 'running') {
-      audioRef.current?.play();
+  const handlePause = () => {
+    if (isPlaying) {
+      pause();
+      setIsPlaying(false);
+      setIsPaused(true);
+      return;
+    }
+
+    play();
+    setIsPlaying(true);
+    setIsPaused(false);
+  };
+
+  const handleTrackChange = (shouldChangeTrack: boolean, forward = true): void => {
+    if (shouldChangeTrack) {
+      const newTrack = forward ? tracks[trackNr + 1] : tracks[trackNr - 1];
+      setCurrentTrack(newTrack);
+
+      audioRef.current?.load();
+
+      if (isPlaying || isPaused) {
+        play();
+        setIsPaused(false);
+        setIsPlaying(true);
+      }
     }
   };
 
@@ -53,11 +72,11 @@ const Winamp = () => {
       </audio>
       <ButtonGroupWrapper>
         <ButtonGroup
-          handlePlay={play}
-          handleStop={stop}
-          handlePause={stop} // TODO: Fix this!
-          handlePreviousTrack={handlePreviousTrack}
-          handleNextTrack={handleNextTrack}
+          handlePlay={() => handlePlay()}
+          handleStop={() => handleStop()}
+          handlePause={() => handlePause()}
+          handlePreviousTrack={() => handleTrackChange(trackNr > 0, false)}
+          handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
         />
       </ButtonGroupWrapper>
       {analyser ? (

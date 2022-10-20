@@ -11,22 +11,23 @@ export const useCreateAudio = (audioRef: React.RefObject<HTMLMediaElement>) => {
       source.current.connect(context.current.destination);
     }
 
-    audioRef.current?.play();
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
   };
 
   const stop = () => {
-    audioRef.current?.pause();
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
   };
 
-  // const pause = () => {
-  //   if (!context || !source.current) return;
+  const pause = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+  };
 
-  //   if (source.current.playbackRate.value === 0) {
-  //     source.current.playbackRate.value = 1;
-  //   } else {
-  //     source.current.playbackRate.value = 0;
-  //   }
-  // };
-
-  return { play, stop, context: context.current, source: source.current };
+  return { play, stop, pause, context: context.current, source: source.current };
 };
