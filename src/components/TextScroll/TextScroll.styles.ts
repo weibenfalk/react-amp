@@ -1,14 +1,11 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   --duration: 10s;
-  --gap: 0px;
 
   display: flex;
   overflow: hidden;
   user-select: none;
-  gap: var(--gap);
-
   position: relative;
   color: #00e800;
   font-size: 9px;
@@ -37,7 +34,7 @@ export const Wrapper = styled.div`
       }
 
       100% {
-        transform: translateX(calc(-100% - var(--gap)));
+        transform: translateX(-100%);
       }
     }
   }

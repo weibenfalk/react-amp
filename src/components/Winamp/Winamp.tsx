@@ -2,7 +2,8 @@ import React from 'react';
 // Components
 import SpectrumAnalyser from '../SpectrumAnalyser/SpectrumAnalyser';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import TextDisplay from 'components/TextDisplay/TextDisplay';
+import TextDisplay from 'components/TextScroll/TextScroll';
+import Text from 'components/Text/Text';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -96,12 +97,12 @@ const Winamp = () => {
         </SpectrumAnalyserWrapper>
       ) : null}
       <TextDisplayWrapper>
-        <TextDisplay isScrolling text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
+        <TextDisplay text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
       </TextDisplayWrapper>
-      {/* <FrequenciesWrapper>
-        <TextDisplay text={currentTrack.bitRate.toString()} />
-        <TextDisplay text={currentTrack.sampleRate.toString()} />
-      </FrequenciesWrapper> */}
+      <FrequenciesWrapper>
+        <Text text={currentTrack.bitRate.toString()} />
+        <Text text={currentTrack.sampleRate.toString()} />
+      </FrequenciesWrapper>
     </Wrapper>
   );
 };
