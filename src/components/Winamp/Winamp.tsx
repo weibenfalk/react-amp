@@ -37,8 +37,6 @@ const Winamp = () => {
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
 
-  // const { seconds, minutes } = useCreateTimer(audioRef.current?.currentTime, isPlaying);
-
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
 
   const handlePlay = () => {
