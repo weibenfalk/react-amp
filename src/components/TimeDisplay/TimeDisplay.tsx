@@ -1,7 +1,5 @@
 // Image
 import NumbersImageMap from 'assets/NUMBERS.BMP';
-// Styles
-import { Wrapper } from './TimeDisplay.styles';
 
 type Props = {
   seconds: number;
@@ -20,7 +18,11 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
         const image = document.createElement('img');
         image.src = NumbersImageMap;
 
-        const number = 0;
+        const seconds9s = Math.floor(seconds % 10);
+        const seconds10s = Math.floor(seconds / 10) % 60;
+
+        const minutes9s = Math.floor(minutes % 10);
+        const minutes10s = Math.floor(minutes / 10) % 60;
 
         image.onload = () => {
           context?.clearRect(0, 0, image.width, image.height);
@@ -29,7 +31,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
 
           context?.drawImage(
             image,
-            NUMBER_WIDTH * seconds,
+            NUMBER_WIDTH * minutes10s,
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
@@ -40,7 +42,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
           );
           context?.drawImage(
             image,
-            NUMBER_WIDTH * number,
+            NUMBER_WIDTH * minutes9s,
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
@@ -52,7 +54,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
 
           context?.drawImage(
             image,
-            NUMBER_WIDTH * number,
+            NUMBER_WIDTH * seconds10s,
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
@@ -63,7 +65,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
           );
           context?.drawImage(
             image,
-            NUMBER_WIDTH * seconds,
+            NUMBER_WIDTH * seconds9s,
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
