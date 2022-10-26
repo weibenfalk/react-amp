@@ -37,3 +37,15 @@ export const FrequenciesWrapper = styled.div`
   top: 41px;
   left: 112px;
 `;
+
+export const MonoStereoWrapper = styled.div`
+  position: absolute;
+  top: 39px;
+  right: 8px;
+`;
+
+export const TimeDisplayWrapper = styled.div`
+  position: absolute;
+  top: 26px;
+  left: 49px;
+`;

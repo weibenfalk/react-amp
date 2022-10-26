@@ -4,6 +4,8 @@ import SpectrumAnalyser from '../SpectrumAnalyser/SpectrumAnalyser';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import TextDisplay from 'components/TextScroll/TextScroll';
 import Text from 'components/Text/Text';
+import MonoStereo from 'components/MonoStereo/MonoStereo';
+import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -17,7 +19,9 @@ import {
   SpectrumAnalyserWrapper,
   ButtonGroupWrapper,
   TextDisplayWrapper,
-  FrequenciesWrapper
+  FrequenciesWrapper,
+  MonoStereoWrapper,
+  TimeDisplayWrapper
 } from './Winamp.styles';
 
 const Winamp = () => {
@@ -29,6 +33,8 @@ const Winamp = () => {
 
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
+
+  console.log(source);
 
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
 
@@ -103,6 +109,12 @@ const Winamp = () => {
         <Text text={currentTrack.bitRate.toString()} />
         <Text text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
+      <MonoStereoWrapper>
+        <MonoStereo />
+      </MonoStereoWrapper>
+      <TimeDisplayWrapper>
+        <TimeDisplay />
+      </TimeDisplayWrapper>
     </Wrapper>
   );
 };

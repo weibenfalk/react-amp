@@ -1,5 +1,8 @@
 // Components
 import Button from 'components/Button/Button';
+import CanvasButton from 'components/CanvasButton/CanvasButton';
+// Types
+import { ButtonType } from 'components/CanvasButton/CanvasButton';
 // Styles
 import { Wrapper } from './ButtonGroup.styles';
 
