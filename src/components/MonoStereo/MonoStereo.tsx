@@ -1,4 +1,3 @@
-import React from 'react';
 // Image
 import MonoStereoImage from 'assets/MONOSTER.BMP';
 
@@ -25,7 +24,7 @@ const MonoStereo = ({ mono = false, stereo = true }: Props) => (
 
           const monoXstart = elementWidth;
           const monoYstart = mono ? 0 : elementHeigth;
-          
+
           const stereoXstart = 0;
           const stereoYstart = stereo ? 0 : elementHeigth;
 

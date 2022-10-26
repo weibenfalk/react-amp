@@ -31,10 +31,13 @@ const Winamp = () => {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isPaused, setIsPaused] = React.useState(false);
 
+  const [seconds, setSeconds] = React.useState(0);
+  const [minutes, setMinutes] = React.useState(0);
+
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
 
-  console.log(source);
+  // const { seconds, minutes } = useCreateTimer(audioRef.current?.currentTime, isPlaying);
 
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
 
@@ -78,9 +81,18 @@ const Winamp = () => {
     }
   };
 
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const roundedTime = Math.floor(audioRef.current.currentTime);
+
+      setSeconds(roundedTime % 60);
+      setMinutes(Math.floor((roundedTime / 60) % 60));
+    }
+  };
+
   return (
     <Wrapper bgImage={BGImage}>
-      <audio ref={audioRef}>
+      <audio onTimeUpdate={handleTimeUpdate} ref={audioRef}>
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>
@@ -113,7 +125,7 @@ const Winamp = () => {
         <MonoStereo />
       </MonoStereoWrapper>
       <TimeDisplayWrapper>
-        <TimeDisplay />
+        <TimeDisplay seconds={seconds} minutes={minutes} />
       </TimeDisplayWrapper>
     </Wrapper>
   );
