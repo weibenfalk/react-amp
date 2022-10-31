@@ -18,11 +18,8 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
         const image = document.createElement('img');
         image.src = NumbersImageMap;
 
-        const seconds9s = Math.floor(seconds % 10);
-        const seconds10s = Math.floor(seconds / 10) % 60;
-
-        const minutes9s = Math.floor(minutes % 10);
-        const minutes10s = Math.floor(minutes / 10) % 60;
+        const getTime1s = (value: number) => Math.floor(value % 10);
+        const getTime10s = (value: number) => Math.floor(value / 10) % 60;
 
         image.onload = () => {
           context?.clearRect(0, 0, image.width, image.height);
@@ -31,7 +28,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
 
           context?.drawImage(
             image,
-            NUMBER_WIDTH * minutes10s,
+            NUMBER_WIDTH * getTime10s(minutes),
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
@@ -42,7 +39,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
           );
           context?.drawImage(
             image,
-            NUMBER_WIDTH * minutes9s,
+            NUMBER_WIDTH * getTime1s(minutes),
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
@@ -54,7 +51,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
 
           context?.drawImage(
             image,
-            NUMBER_WIDTH * seconds10s,
+            NUMBER_WIDTH * getTime10s(seconds),
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,
@@ -65,7 +62,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
           );
           context?.drawImage(
             image,
-            NUMBER_WIDTH * seconds9s,
+            NUMBER_WIDTH * getTime1s(seconds),
             0,
             NUMBER_WIDTH,
             NUMBER_HEIGTH,

@@ -6,6 +6,7 @@ import TextDisplay from 'components/TextScroll/TextScroll';
 import Text from 'components/Text/Text';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
+import VolumeControl from 'components/VolumeControl/Volumecontrol';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -21,7 +22,8 @@ import {
   TextDisplayWrapper,
   FrequenciesWrapper,
   MonoStereoWrapper,
-  TimeDisplayWrapper
+  TimeDisplayWrapper,
+  VolumeControlWrapper
 } from './Winamp.styles';
 
 const Winamp = () => {
@@ -125,6 +127,9 @@ const Winamp = () => {
       <TimeDisplayWrapper>
         <TimeDisplay seconds={seconds} minutes={minutes} />
       </TimeDisplayWrapper>
+      <VolumeControlWrapper>
+        <VolumeControl />
+      </VolumeControlWrapper>
     </Wrapper>
   );
 };

@@ -49,3 +49,10 @@ export const TimeDisplayWrapper = styled.div`
   top: 26px;
   left: 49px;
 `;
+
+export const VolumeControlWrapper = styled.div`
+  position: absolute;
+  top: 57px;
+  left: 107px;
+`;
+
