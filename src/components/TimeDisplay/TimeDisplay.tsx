@@ -22,7 +22,7 @@ const TimeDisplay = ({ seconds, minutes }: Props) => (
         const getTime10s = (value: number) => Math.floor(value / 10) % 60;
 
         image.onload = () => {
-          context?.clearRect(0, 0, image.width, image.height);
+          // context?.clearRect(0, 0, image.width, image.height);
 
           // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 

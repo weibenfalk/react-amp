@@ -6,7 +6,7 @@ import TextDisplay from 'components/TextScroll/TextScroll';
 import Text from 'components/Text/Text';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
-import VolumeControl from 'components/VolumeControl/Volumecontrol';
+import VolumeControl from 'components/VolumeControl/VolumeControl';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -32,12 +32,19 @@ const Winamp = () => {
   const [currentTrack, setCurrentTrack] = React.useState(tracks[0]);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isPaused, setIsPaused] = React.useState(false);
+  const [volume, setVolume] = React.useState(1);
 
   const [seconds, setSeconds] = React.useState(0);
   const [minutes, setMinutes] = React.useState(0);
 
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
+
+  React.useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
 
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
 
@@ -128,7 +135,7 @@ const Winamp = () => {
         <TimeDisplay seconds={seconds} minutes={minutes} />
       </TimeDisplayWrapper>
       <VolumeControlWrapper>
-        <VolumeControl />
+        <VolumeControl volume={volume} setVolume={setVolume} />
       </VolumeControlWrapper>
     </Wrapper>
   );

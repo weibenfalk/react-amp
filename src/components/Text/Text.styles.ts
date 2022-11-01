@@ -11,5 +11,6 @@ export const Wrapper = styled.div`
     display: inline-block;
     margin: 0;
     padding: 0;
+    user-select: none;
   }
 `;
