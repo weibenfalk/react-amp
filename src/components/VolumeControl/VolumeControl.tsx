@@ -13,9 +13,10 @@ const HANDLE_WIDTH = 14;
 type Props = {
   volume: number;
   setVolume: React.Dispatch<React.SetStateAction<number>>;
+  className?: string;
 };
 
-const VolumeControl = ({ volume, setVolume }: Props) => {
+const VolumeControl = ({ volume, setVolume, className = "" }: Props) => {
   const [isDragging, setIsDragging] = React.useState(false);
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -92,7 +93,7 @@ const VolumeControl = ({ volume, setVolume }: Props) => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <canvas
         className='handle'
         ref={handleRef}

@@ -4,13 +4,15 @@ import NumbersImageMap from 'assets/NUMBERS.BMP';
 type Props = {
   seconds: number;
   minutes: number;
+  className?: string;
 };
 
 const NUMBER_WIDTH = 9;
 const NUMBER_HEIGTH = 13;
 
-const TimeDisplay = ({ seconds, minutes }: Props) => (
+const TimeDisplay = ({ seconds, minutes, className = '' }: Props) => (
   <canvas
+    className={className}
     ref={canvas => {
       if (canvas) {
         const context = canvas.getContext('2d');

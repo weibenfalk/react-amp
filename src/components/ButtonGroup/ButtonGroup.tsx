@@ -9,10 +9,18 @@ type Props = {
   handlePause: () => void;
   handlePreviousTrack: () => void;
   handleNextTrack: () => void;
+  className?: string;
 };
 
-const ButtonGroup = ({ handlePlay, handleStop, handlePause, handlePreviousTrack, handleNextTrack }: Props) => (
-  <Wrapper>
+const ButtonGroup = ({
+  handlePlay,
+  handleStop,
+  handlePause,
+  handlePreviousTrack,
+  handleNextTrack,
+  className = ''
+}: Props) => (
+  <Wrapper className={className}>
     <Button type='previous' clickHandler={handlePreviousTrack} />
     <Button type='play' clickHandler={handlePlay} />
     <Button type='pause' clickHandler={handlePause} />

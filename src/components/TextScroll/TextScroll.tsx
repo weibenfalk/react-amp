@@ -3,10 +3,11 @@ import { Wrapper } from './TextScroll.styles';
 
 type Props = {
   text: string;
+  className?: string;
 };
 
-const TextDisplay = ({ text }: Props) => (
-  <Wrapper>
+const TextDisplay = ({ text, className = '' }: Props) => (
+  <Wrapper className={className}>
     <div className='container'>
       <p>{text}</p>
       <p>{text}</p>

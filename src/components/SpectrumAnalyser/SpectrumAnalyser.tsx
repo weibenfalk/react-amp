@@ -4,9 +4,10 @@ type Props = {
   analyser?: AnalyserNode;
   dataArray?: Uint8Array;
   bufferLength: number;
+  className?: string;
 };
 
-const SpectrumAnalyser = ({ analyser, dataArray, bufferLength }: Props) => {
+const SpectrumAnalyser = ({ analyser, dataArray, bufferLength, className = '' }: Props) => {
   const canvasRef = React.useRef(null);
 
   const draw = () => {
@@ -56,7 +57,7 @@ const SpectrumAnalyser = ({ analyser, dataArray, bufferLength }: Props) => {
 
   if (!analyser || !dataArray) return null;
 
-  return <canvas width={77} height={14} ref={canvasRef} />;
+  return <canvas className={className} width={77} height={14} ref={canvasRef} />;
 };
 
 export default SpectrumAnalyser;

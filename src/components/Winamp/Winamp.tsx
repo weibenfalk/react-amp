@@ -2,7 +2,7 @@ import React from 'react';
 // Components
 import SpectrumAnalyser from '../SpectrumAnalyser/SpectrumAnalyser';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import TextDisplay from 'components/TextScroll/TextScroll';
+import TextScroll from 'components/TextScroll/TextScroll';
 import Text from 'components/Text/Text';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
@@ -15,16 +15,7 @@ import { tracks } from 'tracks';
 // Background Image
 import BGImage from 'assets/main.png';
 // Styles
-import {
-  Wrapper,
-  SpectrumAnalyserWrapper,
-  ButtonGroupWrapper,
-  TextDisplayWrapper,
-  FrequenciesWrapper,
-  MonoStereoWrapper,
-  TimeDisplayWrapper,
-  VolumeControlWrapper
-} from './Winamp.styles';
+import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 
 const Winamp = () => {
   const audioRef = React.useRef<HTMLMediaElement>(null);
@@ -103,40 +94,30 @@ const Winamp = () => {
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <ButtonGroupWrapper>
-        <ButtonGroup
-          handlePlay={() => handlePlay()}
-          handleStop={() => handleStop()}
-          handlePause={() => handlePause()}
-          handlePreviousTrack={() => handleTrackChange(trackNr > 0, false)}
-          handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
-        />
-      </ButtonGroupWrapper>
+      <ButtonGroup
+        className='button-group'
+        handlePlay={() => handlePlay()}
+        handleStop={() => handleStop()}
+        handlePause={() => handlePause()}
+        handlePreviousTrack={() => handleTrackChange(trackNr > 0, false)}
+        handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
+      />
       {analyser ? (
-        <SpectrumAnalyserWrapper>
-          <SpectrumAnalyser
-            analyser={analyser.analyser}
-            dataArray={analyser.dataArray}
-            bufferLength={analyser.bufferLength}
-          />
-        </SpectrumAnalyserWrapper>
+        <SpectrumAnalyser
+          className='spectrum-analyser'
+          analyser={analyser.analyser}
+          dataArray={analyser.dataArray}
+          bufferLength={analyser.bufferLength}
+        />
       ) : null}
-      <TextDisplayWrapper>
-        <TextDisplay text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
-      </TextDisplayWrapper>
+      <TextScroll className='text-scroll' text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
       <FrequenciesWrapper>
         <Text text={currentTrack.bitRate.toString()} />
         <Text text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
-      <MonoStereoWrapper>
-        <MonoStereo />
-      </MonoStereoWrapper>
-      <TimeDisplayWrapper>
-        <TimeDisplay seconds={seconds} minutes={minutes} />
-      </TimeDisplayWrapper>
-      <VolumeControlWrapper>
-        <VolumeControl volume={volume} setVolume={setVolume} />
-      </VolumeControlWrapper>
+      <MonoStereo className='mono-stereo' />
+      <TimeDisplay className='time-display' seconds={seconds} minutes={minutes} />
+      <VolumeControl className='volume-control' volume={volume} setVolume={setVolume} />
     </Wrapper>
   );
 };

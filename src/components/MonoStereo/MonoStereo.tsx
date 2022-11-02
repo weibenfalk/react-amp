@@ -4,13 +4,15 @@ import MonoStereoImage from 'assets/MONOSTER.BMP';
 type Props = {
   mono?: boolean;
   stereo?: boolean;
+  className?: string;
 };
 
 const IMAGE_WIDTH = 58;
 const IMAGE_HEIGTH = 24;
 
-const MonoStereo = ({ mono = false, stereo = true }: Props) => (
+const MonoStereo = ({ mono = false, stereo = true, className = '' }: Props) => (
   <canvas
+    className={className}
     ref={canvas => {
       if (canvas) {
         const context = canvas.getContext('2d');

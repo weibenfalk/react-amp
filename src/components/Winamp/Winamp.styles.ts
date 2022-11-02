@@ -10,24 +10,42 @@ export const Wrapper = styled.div<Props>`
   background-size: cover;
   width: 275px;
   height: 116px;
-`;
 
-export const SpectrumAnalyserWrapper = styled.div`
-  position: absolute;
-  top: 45px;
-  left: 24px;
-`;
+  .mono-stereo {
+    position: absolute;
+    top: 39px;
+    right: 8px;
+  }
 
-export const ButtonGroupWrapper = styled.div`
-  position: absolute;
-  top: 88px;
-  left: 16px;
-`;
+  .time-display {
+    position: absolute;
+    top: 26px;
+    left: 49px;
+  }
 
-export const TextDisplayWrapper = styled.div`
-  position: absolute;
-  top: 25px;
-  left: 112px;
+  .volume-control {
+    position: absolute;
+    top: 57px;
+    left: 107px;
+  }
+
+  .text-scroll {
+    position: absolute;
+    top: 25px;
+    left: 112px;
+  }
+
+  .button-group {
+    position: absolute;
+    top: 88px;
+    left: 16px;
+  }
+
+  .spectrum-analyser {
+    position: absolute;
+    top: 45px;
+    left: 24px;
+  }
 `;
 
 export const FrequenciesWrapper = styled.div`
@@ -37,22 +55,3 @@ export const FrequenciesWrapper = styled.div`
   top: 41px;
   left: 112px;
 `;
-
-export const MonoStereoWrapper = styled.div`
-  position: absolute;
-  top: 39px;
-  right: 8px;
-`;
-
-export const TimeDisplayWrapper = styled.div`
-  position: absolute;
-  top: 26px;
-  left: 49px;
-`;
-
-export const VolumeControlWrapper = styled.div`
-  position: absolute;
-  top: 57px;
-  left: 107px;
-`;
-
