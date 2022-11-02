@@ -1,6 +1,8 @@
 import React from 'react';
 // Image map
 import ButtonsImageMap from 'assets/CBUTTONS.BMP';
+// Helpers
+import { drawImageOnCanvas } from 'helpers';
 // Styles
 import { Wrapper } from './CanvasButton.styles';
 
@@ -21,25 +23,16 @@ const BUTTON_WIDTH = 23;
 const BUTTON_HEIGHT = 18;
 
 const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false) => {
-  const context = canvas.getContext('2d');
-
-  const image = document.createElement('img');
-  image.src = ButtonsImageMap;
-
-  image.onload = () => {
-    context?.clearRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-    context?.drawImage(
-      image,
-      BUTTON_WIDTH * position,
-      isClicked ? BUTTON_HEIGHT : 0,
-      BUTTON_WIDTH,
-      BUTTON_HEIGHT,
-      0,
-      0,
-      BUTTON_WIDTH,
-      BUTTON_HEIGHT
-    );
-  };
+  drawImageOnCanvas(ButtonsImageMap, canvas, {
+    sourceX: BUTTON_WIDTH * position,
+    sourceY: isClicked ? BUTTON_HEIGHT : 0,
+    sourceWidth: BUTTON_WIDTH,
+    sourceHeight: BUTTON_HEIGHT,
+    destinationX: 0,
+    destinationY: 0,
+    destinationWidth: BUTTON_WIDTH,
+    destinationHeight: BUTTON_HEIGHT
+  });
 };
 
 const CanvasButton = ({ type, clickHandler }: Props) => {
