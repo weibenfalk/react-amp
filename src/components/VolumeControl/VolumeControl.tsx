@@ -74,10 +74,8 @@ const VolumeControl = ({ volume, setVolume, className = '' }: Props) => {
   };
 
   const handleMouseMove = (event: any) => {
-    if (isDragging) {
-      const mouseXPos = event.clientX - HANDLE_WIDTH / 2;
-      drawVolumeBar(mouseXPos, true);
-    }
+    const mouseXPos = event.clientX - HANDLE_WIDTH / 2;
+    drawVolumeBar(mouseXPos, true);
   };
 
   // Event listeners on window for volume handle
@@ -91,7 +89,7 @@ const VolumeControl = ({ volume, setVolume, className = '' }: Props) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, volume]);
 
   // Show the volumebar on mount
   React.useEffect(() => {
@@ -105,13 +103,7 @@ const VolumeControl = ({ volume, setVolume, className = '' }: Props) => {
 
   return (
     <Wrapper className={className}>
-      <canvas
-        className='handle'
-        ref={handleRef}
-        width={68}
-        height={14}
-        onMouseDown={handleMouseDown}
-      />
+      <canvas className='handle' ref={handleRef} width={68} height={14} onMouseDown={handleMouseDown} />
       <canvas ref={canvasRef} width={68} height={14} />
     </Wrapper>
   );
