@@ -2,7 +2,7 @@ type Coords = {
   sourceX: number;
   sourceY: number;
   sourceWidth: number;
-  sourceHeigth: number;
+  sourceHeight: number;
   destinationX: number;
   destinationY: number;
   destinationWidth: number;
@@ -24,7 +24,7 @@ export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, c
         coords.sourceX,
         coords.sourceY,
         coords.sourceWidth,
-        coords.sourceHeigth,
+        coords.sourceHeight,
         coords.destinationX,
         coords.destinationY,
         coords.destinationWidth,
