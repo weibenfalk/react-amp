@@ -2,7 +2,7 @@ import React from 'react';
 // Image
 import VolumeImageMap from 'assets/VOLUME.BMP';
 // Helpers
-import { drawImageOnCanvas } from './helpers';
+import { drawImageOnCanvas } from 'helpers';
 // Styles
 import { Wrapper } from './VolumeControl.styles';
 

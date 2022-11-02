@@ -9,15 +9,16 @@ type Coords = {
   destinationHeight: number;
 };
 
-export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, coords: Coords): void => {
+export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, coords: Coords, clear = true): void => {
   const image = document.createElement('img');
   image.src = imageMap;
 
   image.onload = () => {
     const context = canvas.getContext('2d');
+
     if (context) {
       context.imageSmoothingEnabled = false;
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      if (clear) context.clearRect(0, 0, canvas.width, canvas.height);
 
       context.drawImage(
         image,

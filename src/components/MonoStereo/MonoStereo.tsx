@@ -1,5 +1,7 @@
 // Image
 import MonoStereoImage from 'assets/MONOSTER.BMP';
+// Helpers
+import { drawImageOnCanvas } from 'helpers';
 
 type Props = {
   mono?: boolean;
@@ -15,48 +17,36 @@ const MonoStereo = ({ mono = false, stereo = true, className = '' }: Props) => (
     className={className}
     ref={canvas => {
       if (canvas) {
-        const context = canvas.getContext('2d');
+        const elementWidth = IMAGE_WIDTH / 2;
+        const elementHeigth = IMAGE_HEIGTH / 2;
 
-        const image = document.createElement('img');
-        image.src = MonoStereoImage;
+        const monoXstart = elementWidth;
+        const monoYstart = mono ? 0 : elementHeigth;
 
-        image.onload = () => {
-          const elementWidth = IMAGE_WIDTH / 2;
-          const elementHeigth = IMAGE_HEIGTH / 2;
+        const stereoXstart = 0;
+        const stereoYstart = stereo ? 0 : elementHeigth;
 
-          const monoXstart = elementWidth;
-          const monoYstart = mono ? 0 : elementHeigth;
+        drawImageOnCanvas(MonoStereoImage, canvas, {
+          sourceX: monoXstart,
+          sourceY: monoYstart,
+          sourceWidth: elementWidth,
+          sourceHeight: elementHeigth,
+          destinationX: 0,
+          destinationY: 0,
+          destinationWidth: elementWidth,
+          destinationHeight: elementHeigth
+        }, false);
 
-          const stereoXstart = 0;
-          const stereoYstart = stereo ? 0 : elementHeigth;
-
-          context?.clearRect(0, 0, image.width, image.height);
-
-          // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-
-          context?.drawImage(
-            image,
-            monoXstart,
-            monoYstart,
-            elementWidth,
-            elementHeigth,
-            0,
-            0,
-            elementWidth,
-            elementHeigth
-          );
-          context?.drawImage(
-            image,
-            stereoXstart,
-            stereoYstart,
-            elementWidth,
-            elementHeigth,
-            elementWidth,
-            0,
-            elementWidth,
-            elementHeigth
-          );
-        };
+        drawImageOnCanvas(MonoStereoImage, canvas, {
+          sourceX: stereoXstart,
+          sourceY: stereoYstart,
+          sourceWidth: elementWidth,
+          sourceHeight: elementHeigth,
+          destinationX: elementWidth,
+          destinationY: 0,
+          destinationWidth: elementWidth,
+          destinationHeight: elementHeigth
+        }, false);
       }
     }}
     width={IMAGE_WIDTH}
