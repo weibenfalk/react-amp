@@ -44,10 +44,12 @@ const Winamp = () => {
     // If we're already playing a track, rewind to start of song when pressing play
     if (isPlaying && audioRef.current) audioRef.current.currentTime = 0;
     setIsPlaying(true);
+    setIsPaused(false);
   };
 
   const handleStop = () => {
     setIsPlaying(false);
+    setIsPaused(false);
     stop();
   };
 
@@ -90,7 +92,7 @@ const Winamp = () => {
   };
 
   return (
-    <Wrapper bgImage={BGImage}>
+    <Wrapper bgImage={BGImage} isPaused={isPaused}>
       <audio
         onTimeUpdate={handleTimeUpdate}
         onEnded={() => handleTrackChange(trackNr < tracks.length - 1)}

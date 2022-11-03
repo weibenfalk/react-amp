@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 type Props = {
   bgImage: string;
+  isPaused: boolean;
 };
 
 export const Wrapper = styled.div<Props>`
@@ -21,6 +22,18 @@ export const Wrapper = styled.div<Props>`
     position: absolute;
     top: 26px;
     left: 37px;
+    animation: ${props => (props.isPaused ? 'blink-animation 2s steps(2, start) infinite' : 'none')};
+
+    @keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
+    @-webkit-keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
   }
 
   .volume-control {
