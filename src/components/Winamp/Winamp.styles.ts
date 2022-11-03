@@ -20,7 +20,7 @@ export const Wrapper = styled.div<Props>`
   .time-display {
     position: absolute;
     top: 26px;
-    left: 49px;
+    left: 37px;
   }
 
   .volume-control {

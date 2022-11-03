@@ -27,6 +27,8 @@ const Winamp = () => {
 
   const [seconds, setSeconds] = React.useState(0);
   const [minutes, setMinutes] = React.useState(0);
+  const [playTime, setPlayTime] = React.useState(0);
+  const [totalTime, setTotalTime] = React.useState(0);
 
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
@@ -82,9 +84,13 @@ const Winamp = () => {
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       const roundedTime = Math.floor(audioRef.current.currentTime);
+      const roundedTotalTime = Math.floor(audioRef.current.duration);
 
       setSeconds(roundedTime % 60);
       setMinutes(Math.floor((roundedTime / 60) % 60));
+
+      setPlayTime(roundedTime);
+      setTotalTime(roundedTotalTime);
     }
   };
 
@@ -116,7 +122,7 @@ const Winamp = () => {
         <Text text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
       <MonoStereo className='mono-stereo' />
-      <TimeDisplay className='time-display' seconds={seconds} minutes={minutes} />
+      <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
       <VolumeControl className='volume-control' volume={volume} setVolume={setVolume} />
     </Wrapper>
   );

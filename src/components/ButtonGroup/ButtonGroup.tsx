@@ -28,7 +28,7 @@ const ButtonGroup = ({
     <Button type={ButtonType.pause} clickHandler={handlePause} />
     <Button type={ButtonType.stop} clickHandler={handleStop} />
     <Button type={ButtonType.next} clickHandler={handleNextTrack} />
-    <Button className="eject-button" type={ButtonType.eject} clickHandler={handleNextTrack} />
+    <Button className='eject-button' type={ButtonType.eject} clickHandler={() => console.log('Eject!')} />
   </Wrapper>
 );
 

@@ -20,7 +20,6 @@ export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, c
     const context = canvas.getContext('2d');
 
     if (context) {
-      context.imageSmoothingEnabled = false;
       if (clear) context.clearRect(0, 0, canvas.width, canvas.height);
 
       context.drawImage(
