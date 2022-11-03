@@ -1,5 +1,8 @@
 // Components
 import Button from 'components/Button/Button';
+import CanvasButton from 'components/CanvasButton/CanvasButton';
+// Types
+import { ButtonType } from 'components/CanvasButton/CanvasButton';
 // Styles
 import { Wrapper } from './ButtonGroup.styles';
 
@@ -21,11 +24,11 @@ const ButtonGroup = ({
   className = ''
 }: Props) => (
   <Wrapper className={className}>
-    <Button type='previous' clickHandler={handlePreviousTrack} />
-    <Button type='play' clickHandler={handlePlay} />
-    <Button type='pause' clickHandler={handlePause} />
-    <Button type='stop' clickHandler={handleStop} />
-    <Button type='next' clickHandler={handleNextTrack} />
+    <CanvasButton type={ButtonType.previous} clickHandler={handlePreviousTrack} />
+    <CanvasButton type={ButtonType.play} clickHandler={handlePlay} />
+    <CanvasButton type={ButtonType.pause} clickHandler={handlePause} />
+    <CanvasButton type={ButtonType.stop} clickHandler={handleStop} />
+    <CanvasButton type={ButtonType.next} clickHandler={handleNextTrack} />
   </Wrapper>
 );
 

@@ -19,13 +19,14 @@ type Props = {
   clickHandler?: () => void;
 };
 
-const BUTTON_WIDTH = 23;
+const BUTTON_WIDTH = 22;
 const BUTTON_HEIGHT = 18;
+const PADDING = 1;
 
 const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false) => {
   drawImageOnCanvas(ButtonsImageMap, canvas, {
-    sourceX: BUTTON_WIDTH * position,
-    sourceY: isClicked ? BUTTON_HEIGHT : 0,
+    sourceX: BUTTON_WIDTH * position + (position * PADDING), // Need to add position to compensate for the padding in the image
+    sourceY: isClicked ? BUTTON_HEIGHT + PADDING : 0,
     sourceWidth: BUTTON_WIDTH,
     sourceHeight: BUTTON_HEIGHT,
     destinationX: 0,
@@ -48,7 +49,7 @@ const CanvasButton = ({ type, clickHandler }: Props) => {
 
   React.useEffect(() => {
     if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type);
-  });
+  }, []);
 
   return (
     <Wrapper>
