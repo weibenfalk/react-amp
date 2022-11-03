@@ -25,8 +25,6 @@ const Winamp = () => {
   const [isPaused, setIsPaused] = React.useState(false);
   const [volume, setVolume] = React.useState(1);
 
-  const [seconds, setSeconds] = React.useState(0);
-  const [minutes, setMinutes] = React.useState(0);
   const [playTime, setPlayTime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
 
@@ -85,9 +83,6 @@ const Winamp = () => {
     if (audioRef.current) {
       const roundedTime = Math.floor(audioRef.current.currentTime);
       const roundedTotalTime = Math.floor(audioRef.current.duration);
-
-      setSeconds(roundedTime % 60);
-      setMinutes(Math.floor((roundedTime / 60) % 60));
 
       setPlayTime(roundedTime);
       setTotalTime(roundedTotalTime);
