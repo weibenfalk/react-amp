@@ -57,13 +57,13 @@ const TimeDisplay = ({ totalTime, playTime, className = '' }: Props) => {
 
               if (context) {
                 // Clear minus if time is not set to display remaining time
-                context.clearRect(0, 0, 6, 15);
+                context.clearRect(0, 0, 7, 15);
 
                 if (context && isTimeLeft) {
                   context.globalAlpha = 1;
                   context.beginPath();
-                  context.moveTo(0, 7);
-                  context.lineTo(6, 7);
+                  context.moveTo(2, 6.5);
+                  context.lineTo(7, 6.5);
                   context.strokeStyle = '#00e800';
                   context.stroke();
                 }
