@@ -9,6 +9,9 @@ type Coords = {
   destinationHeight: number;
 };
 
+export const getTime1s = (value: number) => Math.floor(value % 10);
+export const getTime10s = (value: number) => Math.floor(value / 10) % 60;
+
 export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, coords: Coords, clear = true): void => {
   const image = document.createElement('img');
   image.src = imageMap;
