@@ -96,7 +96,11 @@ const Winamp = () => {
 
   return (
     <Wrapper bgImage={BGImage}>
-      <audio onTimeUpdate={handleTimeUpdate} ref={audioRef}>
+      <audio
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={() => handleTrackChange(trackNr < tracks.length - 1)}
+        ref={audioRef}
+      >
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>

@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   overflow: hidden;
   user-select: none;
   position: relative;
-  color: #00e800;
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
