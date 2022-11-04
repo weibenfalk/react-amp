@@ -1,17 +1,19 @@
 import React from 'react';
+// Hooks
+import { useRequestAnimationFrame } from 'hooks/useRequestAnimationFrame';
 
 type Props = {
+  isPlaying: boolean;
   analyser?: AnalyserNode;
   dataArray?: Uint8Array;
   bufferLength: number;
   className?: string;
 };
 
-const SpectrumAnalyser = ({ analyser, dataArray, bufferLength, className = '' }: Props) => {
+const SpectrumAnalyser = ({ isPlaying, analyser, dataArray, bufferLength, className = '' }: Props) => {
   const canvasRef = React.useRef(null);
 
   const draw = () => {
-    requestAnimationFrame(draw);
     if (!canvasRef.current || !analyser || !dataArray) return;
 
     //@ts-ignore
@@ -51,9 +53,7 @@ const SpectrumAnalyser = ({ analyser, dataArray, bufferLength, className = '' }:
     canvasCtx.stroke();
   };
 
-  React.useEffect(() => {
-    draw();
-  }, [analyser, dataArray, bufferLength]);
+  useRequestAnimationFrame(isPlaying, draw);
 
   if (!analyser || !dataArray) return null;
 

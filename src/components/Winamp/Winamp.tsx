@@ -1,5 +1,6 @@
 import React from 'react';
 // Components
+import BarAnalyzer from 'components/BarAnalyzer/BarAnalyser';
 import SpectrumAnalyser from '../SpectrumAnalyser/SpectrumAnalyser';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import TextScroll from 'components/TextScroll/TextScroll';
@@ -110,12 +111,22 @@ const Winamp = () => {
         handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
       />
       {analyser ? (
-        <SpectrumAnalyser
-          className='spectrum-analyser'
-          analyser={analyser.analyser}
-          dataArray={analyser.dataArray}
-          bufferLength={analyser.bufferLength}
-        />
+        <>
+          <BarAnalyzer
+            className='spectrum-analyser'
+            isPlaying={isPlaying}
+            analyser={analyser.analyser}
+            dataArray={analyser.dataArray}
+            bufferLength={analyser.bufferLength}
+          />
+          {/* <SpectrumAnalyser
+            className='spectrum-analyser'
+            isPlaying={isPlaying}
+            analyser={analyser.analyser}
+            dataArray={analyser.dataArray}
+            bufferLength={analyser.bufferLength}
+          /> */}
+        </>
       ) : null}
       <TextScroll className='text-scroll' text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
       <FrequenciesWrapper>
