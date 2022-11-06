@@ -44,7 +44,7 @@ export const Wrapper = styled.div<Props>`
 
   .text-scroll {
     position: absolute;
-    top: 25px;
+    top: 27px;
     left: 112px;
   }
 

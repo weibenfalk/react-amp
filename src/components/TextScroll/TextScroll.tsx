@@ -1,3 +1,5 @@
+// Components
+import TextCanvas from 'components/TextCanvas/TextCanvas';
 // Styles
 import { Wrapper } from './TextScroll.styles';
 
@@ -9,14 +11,14 @@ type Props = {
 const TextDisplay = ({ text, className = '' }: Props) => (
   <Wrapper className={className}>
     <div className='container'>
-      <p>{text}</p>
-      <p>{text}</p>
-      <p>{text}</p>
+      <TextCanvas text={text} />
+      <TextCanvas text={text} />
+      <TextCanvas text={text} />
     </div>
     <div className='container'>
-      <p>{text}</p>
-      <p>{text}</p>
-      <p>{text}</p>
+      <TextCanvas text={text} />
+      <TextCanvas text={text} />
+      <TextCanvas text={text} />
     </div>
   </Wrapper>
 );
