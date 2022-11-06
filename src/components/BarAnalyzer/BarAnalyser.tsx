@@ -12,10 +12,13 @@ type Props = {
 
 const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className = '' }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const capArray: Array<number> = []; // This is for the cap previous frame position
 
   const barCount = 19;
   const capDropRate = 0.05;
+  const barWidth = 3;
+  const capHeight = 1;
+
+  const capArray: Array<number> = new Array(barCount).fill(0);
 
   const draw = () => {
     //@ts-ignore
@@ -29,8 +32,6 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
     const step = Math.round(dataArray.length / barCount);
 
     let barPos;
-    const barWidth = 3;
-    const capHeight = 1;
     let barHeight;
 
     analyser.getByteFrequencyData(dataArray);
@@ -57,7 +58,7 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
 
     for (var i = 0; i < barCount; i++) {
       barPos = i * 4;
-      // Adjust the bars to not be that high
+      // Adjust the bar height
       barHeight = Math.round(dataArray[i * step] / canvas.height);
 
       // First draw the bar
@@ -67,11 +68,8 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
       // Then draw the cap
       canvasCtx.fillStyle = 'rgb(150, 150, 150)';
 
-      if (capArray.length < barCount) capArray.push(barHeight);
-
       if (barHeight < capArray[i]) {
         capArray[i] = capArray[i] - capDropRate;
-
         canvasCtx.fillRect(barPos, canvas.height - capArray[i], barWidth, capHeight);
       } else {
         canvasCtx.fillRect(barPos, canvas.height - barHeight, barWidth, capHeight);
