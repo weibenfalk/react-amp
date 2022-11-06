@@ -31,9 +31,6 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
     // we want to step through the dataArray and grab as many elements as the bars along the spectrum.
     const step = Math.round(dataArray.length / barCount);
 
-    let barPos;
-    let barHeight;
-
     analyser.getByteFrequencyData(dataArray);
 
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,9 +54,9 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
     gradient.addColorStop(16 / 16, 'rgb(24,132,8)');
 
     for (var i = 0; i < barCount; i++) {
-      barPos = i * 4;
+      const barPos = i * 4;
       // Adjust the bar height
-      barHeight = Math.round(dataArray[i * step] / canvas.height);
+      const barHeight = Math.round(dataArray[i * step] / canvas.height);
 
       // First draw the bar
       canvasCtx.fillStyle = gradient;
