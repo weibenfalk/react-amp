@@ -20,22 +20,40 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
 
     if (!canvasRef.current || !analyser || !dataArray || !canvas || !canvasCtx) return;
 
-    const fbc_array = new Uint8Array(analyser.frequencyBinCount);
     const bar_count = 19;
 
     let bar_pos;
     let bar_width;
     let bar_height;
 
-    analyser.getByteFrequencyData(fbc_array);
+    analyser.getByteFrequencyData(dataArray);
 
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-    canvasCtx.fillStyle = '#ffffff';
+
+    const gradient = canvasCtx.createLinearGradient(0, 0, 0, 15);
+    gradient.addColorStop(1/16, 'rgb(239,49,16)');
+    gradient.addColorStop(2/16, 'rgb(206,41,16)');
+    gradient.addColorStop(3/16, 'rgb(214,90,0)');
+    gradient.addColorStop(4/16, 'rgb(214,102,0)');
+    gradient.addColorStop(5/16, 'rgb(214,115,0)');
+    gradient.addColorStop(6/16, 'rgb(198,123,8)');
+    gradient.addColorStop(7/16, 'rgb(222,165,24)');
+    gradient.addColorStop(8/16, 'rgb(214,181,33)');
+    gradient.addColorStop(9/16, 'rgb(189,222,41)');
+    gradient.addColorStop(10/16, 'rgb(148,222,33)');
+    gradient.addColorStop(11/16, 'rgb(41,206,16)');
+    gradient.addColorStop(12/16, 'rgb(50,190,16)');
+    gradient.addColorStop(13/16, 'rgb(57,181,16)');
+    gradient.addColorStop(14/16, 'rgb(49,156,8)');
+    gradient.addColorStop(15/16, 'rgb(41,148,0)');
+    gradient.addColorStop(16/16, 'rgb(24,132,8)');
+
+    canvasCtx.fillStyle = gradient;
 
     for (var i = 0; i < bar_count; i++) {
       bar_pos = i * 4;
       bar_width = 3;
-      bar_height = -(fbc_array[i] / 15);
+      bar_height = -(dataArray[i] / 15);
 
       canvasCtx.fillRect(bar_pos, canvas.height, bar_width, bar_height);
     }

@@ -25,6 +25,7 @@ const Winamp = () => {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isPaused, setIsPaused] = React.useState(false);
   const [volume, setVolume] = React.useState(1);
+  const [isBars, setIsBars] = React.useState(true);
 
   const [playTime, setPlayTime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
@@ -92,6 +93,10 @@ const Winamp = () => {
     }
   };
 
+  const handleVisualisationChange = () => {
+    setIsBars(prev => !prev);
+  };
+
   return (
     <Wrapper bgImage={BGImage} isPaused={isPaused}>
       <audio
@@ -111,22 +116,25 @@ const Winamp = () => {
         handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
       />
       {analyser ? (
-        <>
-          <BarAnalyzer
-            className='spectrum-analyser'
-            isPlaying={isPlaying}
-            analyser={analyser.analyser}
-            dataArray={analyser.dataArray}
-            bufferLength={analyser.bufferLength}
-          />
-          {/* <SpectrumAnalyser
-            className='spectrum-analyser'
-            isPlaying={isPlaying}
-            analyser={analyser.analyser}
-            dataArray={analyser.dataArray}
-            bufferLength={analyser.bufferLength}
-          /> */}
-        </>
+        <div onClick={handleVisualisationChange}>
+          {isBars ? (
+            <BarAnalyzer
+              className='spectrum-analyser'
+              isPlaying={isPlaying}
+              analyser={analyser.analyser}
+              dataArray={analyser.dataArray}
+              bufferLength={analyser.bufferLength}
+            />
+          ) : (
+            <SpectrumAnalyser
+              className='spectrum-analyser'
+              isPlaying={isPlaying}
+              analyser={analyser.analyser}
+              dataArray={analyser.dataArray}
+              bufferLength={analyser.bufferLength}
+            />
+          )}
+        </div>
       ) : null}
       <TextScroll className='text-scroll' text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
       <FrequenciesWrapper>
