@@ -12,6 +12,10 @@ type Props = {
 
 const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className = '' }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const capArray: Array<number> = []; // This is for the cap previous frame position
+
+  const barCount = 19;
+  const capDropRate = 0.05;
 
   const draw = () => {
     //@ts-ignore
@@ -20,12 +24,14 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
 
     if (!canvasRef.current || !analyser || !dataArray || !canvas || !canvasCtx) return;
 
-    const bar_count = 19;
-    const step = Math.round(dataArray.length / bar_count);
+    // As the array with data has far more elements than the number of bars,
+    // we want to step through the dataArray and grab as many elements as the bars along the spectrum.
+    const step = Math.round(dataArray.length / barCount);
 
-    let bar_pos;
-    let bar_width;
-    let bar_height;
+    let barPos;
+    const barWidth = 3;
+    const capHeight = 1;
+    let barHeight;
 
     analyser.getByteFrequencyData(dataArray);
 
@@ -49,17 +55,28 @@ const BarAnalyzer = ({ isPlaying, analyser, dataArray, bufferLength, className =
     gradient.addColorStop(15 / 16, 'rgb(41,148,0)');
     gradient.addColorStop(16 / 16, 'rgb(24,132,8)');
 
-    console.log(dataArray);
+    for (var i = 0; i < barCount; i++) {
+      barPos = i * 4;
+      // Adjust the bars to not be that high
+      barHeight = Math.round(dataArray[i * step] / canvas.height);
 
-    canvasCtx.fillStyle = gradient;
+      // First draw the bar
+      canvasCtx.fillStyle = gradient;
+      canvasCtx.fillRect(barPos, canvas.height, barWidth, -barHeight + capHeight);
 
-    for (var i = 0; i < bar_count; i++) {
-      bar_pos = i * 4;
-      bar_width = 3;
-      // Adjust the bars to not be that hight
-      bar_height = -(dataArray[i * step] / 14);
+      // Then draw the cap
+      canvasCtx.fillStyle = 'rgb(150, 150, 150)';
 
-      canvasCtx.fillRect(bar_pos, canvas.height, bar_width, bar_height);
+      if (capArray.length < barCount) capArray.push(barHeight);
+
+      if (barHeight < capArray[i]) {
+        capArray[i] = capArray[i] - capDropRate;
+
+        canvasCtx.fillRect(barPos, canvas.height - capArray[i], barWidth, capHeight);
+      } else {
+        canvasCtx.fillRect(barPos, canvas.height - barHeight, barWidth, capHeight);
+        capArray[i] = barHeight;
+      }
     }
   };
 
