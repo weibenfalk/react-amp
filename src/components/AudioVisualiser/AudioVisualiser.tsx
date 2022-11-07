@@ -24,12 +24,13 @@ const CANVAS_HEIGHT = 14;
 const AudioVisualiser = ({ isPlaying, analyser, dataArray, bufferLength, type, className = '' }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  // Memoize with a callback so that the useRequestAnimationFrame hook don't run too much
+  // Memoize with a callback so that the useRequestAnimationFrame hook don't run unnessecarily
   const barsOrOsc = (type: VisualiserType) => {
     if (canvasRef.current && analyser.current && dataArray.current) {
       const canvasCtx = canvasRef.current.getContext('2d') as CanvasRenderingContext2D;
 
       analyser.current.getByteFrequencyData(dataArray.current);
+
       if (type === VisualiserType.BAR) {
         renderBars(canvasRef.current, canvasCtx, dataArray.current);
       } else {
