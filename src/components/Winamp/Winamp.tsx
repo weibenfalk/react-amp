@@ -1,13 +1,12 @@
 import React from 'react';
 // Components
-import BarAnalyzer from 'components/BarAnalyzer/BarAnalyser';
-import SpectrumAnalyser from '../SpectrumAnalyser/SpectrumAnalyser';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import TextScroll from 'components/TextScroll/TextScroll';
 import Text from 'components/Text/Text';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 import VolumeControl from 'components/VolumeControl/VolumeControl';
+import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -15,6 +14,8 @@ import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
 import { tracks } from 'tracks';
 // Background Image
 import BGImage from 'assets/main.png';
+// Types
+import { VisualiserType } from 'components/AudioVisualiser/AudioVisualiser';
 // Styles
 import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 
@@ -109,31 +110,22 @@ const Winamp = () => {
       </audio>
       <ButtonGroup
         className='button-group'
-        handlePlay={() => handlePlay()}
-        handleStop={() => handleStop()}
-        handlePause={() => handlePause()}
+        handlePlay={handlePlay}
+        handleStop={handleStop}
+        handlePause={handlePause}
         handlePreviousTrack={() => handleTrackChange(trackNr > 0, false)}
         handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
       />
-      {analyser ? (
+      {analyser && analyser.analyser && analyser.dataArray ? (
         <div onClick={handleVisualisationChange}>
-          {isBars ? (
-            <BarAnalyzer
-              className='spectrum-analyser'
-              isPlaying={isPlaying}
-              analyser={analyser.analyser}
-              dataArray={analyser.dataArray}
-              bufferLength={analyser.bufferLength}
-            />
-          ) : (
-            <SpectrumAnalyser
-              className='spectrum-analyser'
-              isPlaying={isPlaying}
-              analyser={analyser.analyser}
-              dataArray={analyser.dataArray}
-              bufferLength={analyser.bufferLength}
-            />
-          )}
+          <AudioVisualiser
+            className='spectrum-analyser'
+            isPlaying={isPlaying}
+            analyser={analyser.analyser}
+            dataArray={analyser.dataArray}
+            bufferLength={analyser.bufferLength}
+            type={isBars ? VisualiserType.BAR : VisualiserType.OSC}
+          />
         </div>
       ) : null}
       <TextScroll className='text-scroll' text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
