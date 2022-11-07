@@ -6,7 +6,7 @@ import { drawImageOnCanvas } from 'helpers';
 // Styles
 import { Wrapper } from './ControlButton.styles';
 
-export enum ButtonType {
+export enum ControlButtonType {
   previous,
   play,
   pause,
@@ -16,7 +16,7 @@ export enum ButtonType {
 }
 
 type Props = {
-  type: ButtonType;
+  type: ControlButtonType;
   clickHandler?: () => void;
   className?: string;
 };
@@ -56,7 +56,7 @@ const ControlButton = ({ type, clickHandler, className = '' }: Props) => {
 
   React.useEffect(() => {
     if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type);
-  }, []);
+  }, [type]);
 
   return (
     <Wrapper className={className}>

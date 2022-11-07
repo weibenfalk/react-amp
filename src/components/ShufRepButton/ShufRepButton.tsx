@@ -1,71 +1,72 @@
 import React from 'react';
 // Image map
-import ButtonsImageMap from 'assets/CBUTTONS.BMP';
+import ButtonsImageMap from 'assets/SHUFREP.BMP';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 // Styles
 import { Wrapper } from './ShufRepButton.styles';
 
-export enum ButtonType {
-  previous,
-  play,
-  pause,
-  stop,
-  next,
-  eject
+export enum ShufRepButtonType {
+  repeat,
+  shuffle
 }
 
 type Props = {
-  type: ButtonType;
+  type: ShufRepButtonType;
+  active: boolean;
   clickHandler?: () => void;
   className?: string;
 };
 
-const BUTTON_WIDTH = 22;
-const BUTTON_HEIGHT = 17;
-const EJECT_BUTTON_HEIGHT = 15;
+const REPEAT_BUTTON_WIDTH = 27;
+const SHUFFLE_BUTTON_WIDTH = 46;
+const BUTTON_HEIGHT = 15;
 const PADDING = 1;
 
-const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false) => {
-  const padding = position === 5 ? position - 1 * PADDING : position * PADDING;
-  const sourceX = BUTTON_WIDTH * position + padding;
-  const buttonHeight = position === 5 ? EJECT_BUTTON_HEIGHT : BUTTON_HEIGHT;
+const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false, isActive = false) => {
+  const buttonWidth = position === 0 ? REPEAT_BUTTON_WIDTH : SHUFFLE_BUTTON_WIDTH;
+  const sourceX = position === 0 ? 0 : REPEAT_BUTTON_WIDTH + PADDING;
+
+  const startSourceY = isActive ? BUTTON_HEIGHT * 2 : 0;
 
   drawImageOnCanvas(ButtonsImageMap, canvas, {
     sourceX, // Need to add position to compensate for the padding in the image
-    sourceY: isClicked ? buttonHeight + PADDING : 0,
-    sourceWidth: BUTTON_WIDTH,
-    sourceHeight: buttonHeight,
+    sourceY: startSourceY + (isClicked ? BUTTON_HEIGHT : 0),
+    sourceWidth: buttonWidth,
+    sourceHeight: BUTTON_HEIGHT,
     destinationX: 0,
     destinationY: 0,
-    destinationWidth: BUTTON_WIDTH,
-    destinationHeight: buttonHeight
+    destinationWidth: buttonWidth,
+    destinationHeight: BUTTON_HEIGHT
   });
 };
 
-const ShufRepButton = ({ type, clickHandler, className = '' }: Props) => {
+const ShufRepButton = ({ type, active, clickHandler, className = '' }: Props) => {
+  const [isClicked, setIsClicked] = React.useState(false);
+
+  console.log('re-render');
+
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  const handleMouseDown = () => {
-    if (clickHandler) clickHandler();
-    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type, true);
-  };
+  const handleMouseDown = () => setIsClicked(true);
+
   const handleMouseUp = () => {
-    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type, false);
+    setIsClicked(false);
+    if (clickHandler) clickHandler();
   };
 
   React.useEffect(() => {
-    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type);
-  }, []);
+    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type, isClicked, active);
+  }, [type, active, isClicked]);
 
   return (
     <Wrapper className={className}>
       <canvas
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
+        onMouseLeave={() => setIsClicked(false)}
         ref={canvasRef}
-        width={BUTTON_WIDTH}
+        width={type === ShufRepButtonType.repeat ? REPEAT_BUTTON_WIDTH : SHUFFLE_BUTTON_WIDTH}
         height={BUTTON_HEIGHT}
       />
     </Wrapper>

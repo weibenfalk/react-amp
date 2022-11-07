@@ -1,7 +1,7 @@
 // Components
 import ControlButton from 'components/ControlButton/ControlButton';
 // Types
-import { ButtonType } from 'components/ControlButton/ControlButton';
+import { ControlButtonType } from 'components/ControlButton/ControlButton';
 // Styles
 import { Wrapper } from './ButtonGroup.styles';
 
@@ -23,12 +23,12 @@ const ControlButtonGroup = ({
   className = ''
 }: Props) => (
   <Wrapper className={className}>
-    <ControlButton type={ButtonType.previous} clickHandler={handlePreviousTrack} />
-    <ControlButton type={ButtonType.play} clickHandler={handlePlay} />
-    <ControlButton type={ButtonType.pause} clickHandler={handlePause} />
-    <ControlButton type={ButtonType.stop} clickHandler={handleStop} />
-    <ControlButton type={ButtonType.next} clickHandler={handleNextTrack} />
-    <ControlButton className='eject-button' type={ButtonType.eject} clickHandler={() => console.log('Eject!')} />
+    <ControlButton type={ControlButtonType.previous} clickHandler={handlePreviousTrack} />
+    <ControlButton type={ControlButtonType.play} clickHandler={handlePlay} />
+    <ControlButton type={ControlButtonType.pause} clickHandler={handlePause} />
+    <ControlButton type={ControlButtonType.stop} clickHandler={handleStop} />
+    <ControlButton type={ControlButtonType.next} clickHandler={handleNextTrack} />
+    <ControlButton className='eject-button' type={ControlButtonType.eject} clickHandler={() => console.log('Eject!')} />
   </Wrapper>
 );
 

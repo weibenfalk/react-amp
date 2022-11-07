@@ -1,6 +1,7 @@
 import React from 'react';
 // Components
 import ControlButtonGroup from 'components/ControlButtonGroup/ButtonGroup';
+import ShufRepButton from 'components/ShufRepButton/ShufRepButton';
 import TextDisplay from 'components/TextDisplay/TextDisplay';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
@@ -18,6 +19,7 @@ import { tracks } from 'tracks';
 import BGImage from 'assets/main.png';
 // Types
 import { VisualiserType } from 'components/AudioVisualiser/AudioVisualiser';
+import { ShufRepButtonType } from 'components/ShufRepButton/ShufRepButton';
 // Styles
 import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 
@@ -30,6 +32,8 @@ const Winamp = () => {
   const [volume, setVolume] = React.useState(1);
   const [isBars, setIsBars] = React.useState(true);
   const [isDraggingVolume, setIsDraggingVolume] = React.useState(false);
+  const [isShuffle, setIsShuffle] = React.useState(false);
+  const [isRepeat, setIsRepeat] = React.useState(false);
 
   const [playTime, setPlayTime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
@@ -73,17 +77,21 @@ const Winamp = () => {
   };
 
   const handleTrackChange = (shouldChangeTrack: boolean, forward = true): void => {
-    if (shouldChangeTrack) {
+    if (isShuffle) {
+      const randomTrackNr = Math.floor(Math.random() * tracks.length);
+      const newTrack = tracks[randomTrackNr];
+      setCurrentTrack(newTrack);
+    } else if (shouldChangeTrack) {
       const newTrack = forward ? tracks[trackNr + 1] : tracks[trackNr - 1];
       setCurrentTrack(newTrack);
+    }
 
-      audioRef.current?.load();
+    audioRef.current?.load();
 
-      if (isPlaying || isPaused) {
-        play();
-        setIsPaused(false);
-        setIsPlaying(true);
-      }
+    if (isPlaying || isPaused) {
+      play();
+      setIsPaused(false);
+      setIsPlaying(true);
     }
   };
 
@@ -119,6 +127,13 @@ const Winamp = () => {
         handlePreviousTrack={() => handleTrackChange(trackNr > 0, false)}
         handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
       />
+      <div className='shuf-rep-buttons'>
+        <ShufRepButton
+          type={ShufRepButtonType.shuffle}
+          active={isShuffle}
+          clickHandler={() => setIsShuffle(prev => !prev)}
+        />
+      </div>
       {analyser && analyser.analyser && analyser.dataArray ? (
         <div onClick={handleVisualisationChange}>
           <AudioVisualiser

@@ -59,6 +59,12 @@ export const Wrapper = styled.div<Props>`
     top: 45px;
     left: 24px;
   }
+
+  .shuf-rep-buttons {
+    position: absolute;
+    top: 89px;
+    left: 167px;
+  }
 `;
 
 export const FrequenciesWrapper = styled.div`
