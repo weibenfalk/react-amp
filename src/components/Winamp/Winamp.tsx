@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import ControlButtonGroup from 'components/ControlButtonGroup/ButtonGroup';
 import TextDisplay from 'components/TextDisplay/TextDisplay';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
@@ -111,7 +111,7 @@ const Winamp = () => {
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <ButtonGroup
+      <ControlButtonGroup
         className='button-group'
         handlePlay={handlePlay}
         handleStop={handleStop}

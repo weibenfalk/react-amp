@@ -4,7 +4,7 @@ import ButtonsImageMap from 'assets/CBUTTONS.BMP';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 // Styles
-import { Wrapper } from './Button.styles';
+import { Wrapper } from './ShufRepButton.styles';
 
 export enum ButtonType {
   previous,
@@ -43,7 +43,7 @@ const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked =
   });
 };
 
-const Button = ({ type, clickHandler, className = '' }: Props) => {
+const ShufRepButton = ({ type, clickHandler, className = '' }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   const handleMouseDown = () => {
@@ -72,4 +72,4 @@ const Button = ({ type, clickHandler, className = '' }: Props) => {
   );
 };
 
-export default Button;
+export default ShufRepButton;
