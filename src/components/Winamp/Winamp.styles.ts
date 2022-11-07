@@ -64,7 +64,7 @@ export const Wrapper = styled.div<Props>`
 export const FrequenciesWrapper = styled.div`
   position: absolute;
   display: flex;
-  gap: 31px;
-  top: 41px;
-  left: 112px;
+  gap: 30.5px;
+  top: 43px;
+  left: 111px;
 `;

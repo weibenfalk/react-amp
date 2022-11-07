@@ -2,11 +2,11 @@ import React from 'react';
 // Components
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import TextDisplay from 'components/TextDisplay/TextDisplay';
-import Text from 'components/Text/Text';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 import VolumeControl from 'components/VolumeControl/VolumeControl';
 import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
+import TextCanvas from 'components/TextCanvas/TextCanvas';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -141,8 +141,8 @@ const Winamp = () => {
         isScroll={!isDraggingVolume}
       />
       <FrequenciesWrapper>
-        <Text text={currentTrack.bitRate.toString()} />
-        <Text text={currentTrack.sampleRate.toString()} />
+        <TextCanvas text={currentTrack.bitRate.toString()} />
+        <TextCanvas text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
       <MonoStereo className='mono-stereo' />
       <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
