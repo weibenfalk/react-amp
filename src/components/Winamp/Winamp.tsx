@@ -1,7 +1,7 @@
 import React from 'react';
 // Components
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import TextScroll from 'components/TextScroll/TextScroll';
+import TextDisplay from 'components/TextDisplay/TextDisplay';
 import Text from 'components/Text/Text';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
@@ -10,6 +10,8 @@ import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
+// Helpers
+import { getTotalTimeInMinsAndSecs } from 'helpers';
 // Tracks
 import { tracks } from 'tracks';
 // Background Image
@@ -27,6 +29,7 @@ const Winamp = () => {
   const [isPaused, setIsPaused] = React.useState(false);
   const [volume, setVolume] = React.useState(1);
   const [isBars, setIsBars] = React.useState(true);
+  const [isDraggingVolume, setIsDraggingVolume] = React.useState(false);
 
   const [playTime, setPlayTime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
@@ -128,14 +131,28 @@ const Winamp = () => {
           />
         </div>
       ) : null}
-      <TextScroll className='text-scroll' text={`${currentTrack.title} - ${currentTrack.artist} *** `} />
+      <TextDisplay
+        className='text-scroll'
+        text={
+          isDraggingVolume
+            ? `Volume: ${Math.round(volume * 100)}%`
+            : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(totalTime)}) *** `
+        }
+        isScroll={!isDraggingVolume}
+      />
       <FrequenciesWrapper>
         <Text text={currentTrack.bitRate.toString()} />
         <Text text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
       <MonoStereo className='mono-stereo' />
       <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
-      <VolumeControl className='volume-control' volume={volume} setVolume={setVolume} />
+      <VolumeControl
+        className='volume-control'
+        volume={volume}
+        setVolume={setVolume}
+        isDraggingVolume={isDraggingVolume}
+        setIsDraggingVolume={setIsDraggingVolume}
+      />
     </Wrapper>
   );
 };

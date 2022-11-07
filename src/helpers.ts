@@ -68,17 +68,24 @@ export const characterMap = {
   '%': [132, 6, 4, 6],
   ',': [137, 6, 3, 6],
   '=': [142, 6, 3, 6],
-  '$': [147, 6, 3, 6],
-  '€': [151, 6, 4, 6], 
-  'å': [0, 12, 4, 6],  
-  'ö': [5, 12, 4, 6],
-  'ä': [10, 12, 4, 6],
+  $: [147, 6, 3, 6],
+  '€': [151, 6, 4, 6],
+  å: [0, 12, 4, 6],
+  ö: [5, 12, 4, 6],
+  ä: [10, 12, 4, 6],
   '?': [15, 12, 4, 6],
-  '*': [20, 12, 4, 6],
+  '*': [20, 12, 4, 6]
 };
 
 export const getTime1s = (value: number) => Math.floor(value % 10);
 export const getTime10s = (value: number) => Math.floor(value / 10) % 60;
+
+export const getTotalTimeInMinsAndSecs = (totalTime: number): string => {
+  const seconds = totalTime % 60;
+  const minutes = Math.floor((totalTime / 60) % 60);
+
+  return `${getTime1s(minutes)}:${getTime10s(seconds)}${getTime1s(seconds)}`;
+};
 
 export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, coords: Coords, clear = true): void => {
   const image = document.createElement('img');

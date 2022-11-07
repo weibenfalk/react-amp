@@ -1,21 +1,24 @@
 // Components
 import TextCanvas from 'components/TextCanvas/TextCanvas';
 // Styles
-import { Wrapper } from './TextScroll.styles';
+import { Wrapper } from './TextDisplay.styles';
 
 type Props = {
   text: string;
+  isScroll?: boolean;
   className?: string;
 };
 
-const TextDisplay = ({ text, className = '' }: Props) => (
+const TextDisplay = ({ text, isScroll = true, className = '' }: Props) => (
   <Wrapper className={className}>
-    <div className='container'>
+    {!isScroll ? <TextCanvas text={text} /> : null}
+
+    <div style={{ opacity: isScroll ? 1 : 0 }} className='container'>
       <TextCanvas text={text} />
       <TextCanvas text={text} />
       <TextCanvas text={text} />
     </div>
-    <div className='container'>
+    <div style={{ opacity: isScroll ? 1 : 0 }} className='container'>
       <TextCanvas text={text} />
       <TextCanvas text={text} />
       <TextCanvas text={text} />
