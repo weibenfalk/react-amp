@@ -1,5 +1,5 @@
 // Image
-import MonoStereoImage from 'assets/MONOSTER.BMP';
+import { monoStereoImageMap } from 'imageImports';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 
@@ -26,7 +26,7 @@ const MonoStereo = ({ mono = false, stereo = true, className = '' }: Props) => (
         const stereoXstart = 0;
         const stereoYstart = stereo ? 0 : elementHeigth;
 
-        drawImageOnCanvas(MonoStereoImage, canvas, {
+        drawImageOnCanvas(monoStereoImageMap, canvas, {
           sourceX: monoXstart,
           sourceY: monoYstart,
           sourceWidth: elementWidth,
@@ -37,7 +37,7 @@ const MonoStereo = ({ mono = false, stereo = true, className = '' }: Props) => (
           destinationHeight: elementHeigth
         }, false);
 
-        drawImageOnCanvas(MonoStereoImage, canvas, {
+        drawImageOnCanvas(monoStereoImageMap, canvas, {
           sourceX: stereoXstart,
           sourceY: stereoYstart,
           sourceWidth: elementWidth,

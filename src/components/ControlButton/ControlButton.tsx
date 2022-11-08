@@ -1,6 +1,6 @@
 import React from 'react';
 // Image map
-import ButtonsImageMap from 'assets/CBUTTONS.BMP';
+import { controlButtonsImageMap } from 'imageImports';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 // Styles
@@ -31,7 +31,7 @@ const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked =
   const sourceX = BUTTON_WIDTH * position + padding;
   const buttonHeight = position === 5 ? EJECT_BUTTON_HEIGHT : BUTTON_HEIGHT;
 
-  drawImageOnCanvas(ButtonsImageMap, canvas, {
+  drawImageOnCanvas(controlButtonsImageMap, canvas, {
     sourceX, // Need to add position to compensate for the padding in the image
     sourceY: isClicked ? buttonHeight + PADDING : 0,
     sourceWidth: BUTTON_WIDTH,

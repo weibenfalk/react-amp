@@ -1,6 +1,6 @@
 import React from 'react';
 // Image
-import NumbersImageMap from 'assets/NUMBERS.BMP';
+import { numbersImageMap } from 'imageImports';
 // Helpers
 import { getTime1s, getTime10s } from 'helpers';
 
@@ -50,7 +50,7 @@ const TimeDisplay = ({ totalTime, playTime, className = '' }: Props) => {
 
           if (canvas) {
             const image = document.createElement('img');
-            image.src = NumbersImageMap;
+            image.src = numbersImageMap;
 
             image.onload = () => {
               const context = canvas.getContext('2d');

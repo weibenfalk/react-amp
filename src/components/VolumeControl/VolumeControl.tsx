@@ -1,6 +1,6 @@
 import React from 'react';
 // Image
-import VolumeImageMap from 'assets/VOLUME.BMP';
+import { volumeImageMap } from 'imageImports';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 // Styles
@@ -38,7 +38,7 @@ const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolum
       setVolume(volumeFraction);
 
       // Draw Handle
-      drawImageOnCanvas(VolumeImageMap, handleRef.current, {
+      drawImageOnCanvas(volumeImageMap, handleRef.current, {
         sourceX: pressed ? 0 : 15,
         sourceY: 422,
         sourceWidth: 14,
@@ -50,7 +50,7 @@ const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolum
       });
 
       // Draw volumebar
-      drawImageOnCanvas(VolumeImageMap, canvasRef.current, {
+      drawImageOnCanvas(volumeImageMap, canvasRef.current, {
         sourceX: 0,
         sourceY: 1 * Math.floor(volume / 0.0358) * (VOLUMEBAR_HEIGHT + 1), // +1 to compensate for the padding in the image map between images
         sourceWidth: VOLUMEBAR_WIDTH,

@@ -1,6 +1,6 @@
 import React from 'react';
-// Image map
-import ButtonsImageMap from 'assets/SHUFREP.BMP';
+// Image
+import { shufRepImageMap } from 'imageImports';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 // Styles
@@ -29,7 +29,7 @@ const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked =
 
   const startSourceY = isActive ? BUTTON_HEIGHT * 2 : 0;
 
-  drawImageOnCanvas(ButtonsImageMap, canvas, {
+  drawImageOnCanvas(shufRepImageMap, canvas, {
     sourceX, // Need to add position to compensate for the padding in the image
     sourceY: startSourceY + (isClicked ? BUTTON_HEIGHT : 0),
     sourceWidth: buttonWidth,

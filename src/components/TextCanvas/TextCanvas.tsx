@@ -1,6 +1,6 @@
 import React from 'react';
-// Image map
-import TextImageMap from 'assets/TEXT.BMP';
+// Image
+import { textImageMap } from 'imageImports';
 // CharacterMap
 import { characterMap } from 'helpers';
 
@@ -20,7 +20,7 @@ const TextCanvas = ({ text = 'This is a test text' }: Props) => {
           if (!context) return;
 
           const image = document.createElement('img');
-          image.src = TextImageMap;
+          image.src = textImageMap;
 
           image.onload = () => {
             const lowerCaseString = text.toLowerCase();
