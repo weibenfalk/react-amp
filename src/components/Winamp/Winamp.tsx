@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import CanvasImage from 'components/CanvasImage/CanvasImage';
+import BaseImages from 'components/BaseImages/BaseImages';
 import ControlButtonGroup from 'components/ControlButtonGroup/ButtonGroup';
 import ShufRepButton from 'components/ShufRepButton/ShufRepButton';
 import TextDisplay from 'components/TextDisplay/TextDisplay';
@@ -14,8 +14,6 @@ import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
 // Helpers
 import { getTotalTimeInMinsAndSecs } from 'helpers';
-// Images
-import { mainImageMap, titleBarImageMap, playPauseImageMap } from 'imageImports';
 // Tracks
 import { tracks } from 'tracks';
 // Types
@@ -112,28 +110,6 @@ const Winamp = () => {
 
   return (
     <Wrapper isPaused={isPaused}>
-      <CanvasImage imageFile={mainImageMap} width={275} height={116} startCoords={{ x: 0, y: 0 }} />
-      <CanvasImage
-        className='title-bar'
-        imageFile={titleBarImageMap}
-        width={275}
-        height={14}
-        startCoords={{ x: 27, y: 0 }}
-      />
-      <CanvasImage
-        className='display-buttons'
-        imageFile={titleBarImageMap}
-        width={7}
-        height={43}
-        startCoords={{ x: 305, y: 0 }}
-      />
-      <CanvasImage
-        className='play-pause-button'
-        imageFile={playPauseImageMap}
-        width={9}
-        height={9}
-        startCoords={{ x: isPlaying ? 0 : isPaused ? 9 : 18, y: 0 }}
-      />
       <audio
         onTimeUpdate={handleTimeUpdate}
         onEnded={() => handleTrackChange(trackNr < tracks.length - 1)}
@@ -142,6 +118,7 @@ const Winamp = () => {
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>
+      <BaseImages isPlaying={isPlaying} isPaused={isPaused} />
       <ControlButtonGroup
         className='button-group'
         handlePlay={handlePlay}

@@ -10,24 +10,6 @@ export const Wrapper = styled.div<Props>`
   width: 275px;
   height: 116px;
 
-  .title-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .play-pause-button {
-    position: absolute;
-    top: 28px;
-    left: 25px;
-  }
-
-  .display-buttons {
-    position: absolute;
-    top: 22px;
-    left: 11px;
-  }
-
   .mono-stereo {
     position: absolute;
     top: 39px;
