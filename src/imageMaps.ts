@@ -29,19 +29,19 @@ const createImages = (width: number, height: number, totalAmount: number, paddin
 };
 
 export const volumeKnobMap = {
-  imageMap: posBarImageMap as string,
+  imageMap: volumeImageMap as string,
   images: [
     {
-      x: 249,
-      y: 0,
-      width: 28,
-      height: 10
+      x: 15,
+      y: 422,
+      width: 14,
+      height: 11
     },
     {
-      x: 278,
-      y: 0,
-      width: 28,
-      height: 10
+      x: 0,
+      y: 422,
+      width: 14,
+      height: 11
     }
   ]
 };

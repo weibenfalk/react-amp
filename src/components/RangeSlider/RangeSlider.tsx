@@ -49,7 +49,13 @@ const RangeSlider = ({
   };
 
   return (
-    <Wrapper image={clicked ? knobClicked : knob} width={width} height={height}>
+    <Wrapper
+      image={clicked ? knobClicked : knob}
+      width={width}
+      height={height}
+      knobWidth={knobImages.images[0].width}
+      knobHeight={knobImages.images[0].height}
+    >
       <input
         className={className}
         type='range'
