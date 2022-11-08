@@ -21,7 +21,6 @@ type Props = {
 const REPEAT_BUTTON_WIDTH = 28;
 const SHUFFLE_BUTTON_WIDTH = 47;
 const BUTTON_HEIGHT = 15;
-const PADDING = 1;
 
 const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false, isActive = false) => {
   const buttonWidth = position === 0 ? REPEAT_BUTTON_WIDTH : SHUFFLE_BUTTON_WIDTH;

@@ -9,6 +9,7 @@ import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 import VolumeControl from 'components/VolumeControl/VolumeControl';
 import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
 import TextCanvas from 'components/TextCanvas/TextCanvas';
+import RangeSlider from 'components/RangeSlider/RangeSlider';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -33,7 +34,6 @@ const Winamp = () => {
   const [isDraggingVolume, setIsDraggingVolume] = React.useState(false);
   const [isShuffle, setIsShuffle] = React.useState(false);
   const [isRepeat, setIsRepeat] = React.useState(false);
-
   const [playTime, setPlayTime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
 
@@ -179,6 +179,7 @@ const Winamp = () => {
         isDraggingVolume={isDraggingVolume}
         setIsDraggingVolume={setIsDraggingVolume}
       />
+      <RangeSlider width={400} height={10} />
     </Wrapper>
   );
 };

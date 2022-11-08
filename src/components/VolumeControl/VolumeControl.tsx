@@ -9,6 +9,7 @@ import { Wrapper } from './VolumeControl.styles';
 const VOLUMEBAR_WIDTH = 68;
 const VOLUMEBAR_HEIGHT = 14;
 const HANDLE_WIDTH = 14;
+const PADDING = 1;
 
 type Props = {
   volume: number;
@@ -18,7 +19,7 @@ type Props = {
   className?: string;
 };
 
-const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolume, className = '' }: Props) => {
+const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolume, className }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const handleRef = React.useRef<HTMLCanvasElement>(null);
 
@@ -52,7 +53,7 @@ const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolum
       // Draw volumebar
       drawImageOnCanvas(volumeImageMap, canvasRef.current, {
         sourceX: 0,
-        sourceY: 1 * Math.floor(volume / 0.0358) * (VOLUMEBAR_HEIGHT + 1), // +1 to compensate for the padding in the image map between images
+        sourceY: 1 * Math.floor(volume / 0.0358) * (VOLUMEBAR_HEIGHT + PADDING),
         sourceWidth: VOLUMEBAR_WIDTH,
         sourceHeight: VOLUMEBAR_HEIGHT,
         destinationX: 0,

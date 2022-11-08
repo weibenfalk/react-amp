@@ -7,6 +7,7 @@ import shufRepImageMap from 'assets/SHUFREP.BMP';
 import textImageMap from 'assets/TEXT.BMP';
 import numbersImageMap from 'assets/NUMBERS.BMP';
 import volumeImageMap from 'assets/VOLUME.BMP';
+import posBarImageMap from 'assets/POSBAR.BMP';
 
 export {
   mainImageMap,
@@ -17,5 +18,6 @@ export {
   shufRepImageMap,
   textImageMap,
   numbersImageMap,
-  volumeImageMap
+  volumeImageMap,
+  posBarImageMap
 };
