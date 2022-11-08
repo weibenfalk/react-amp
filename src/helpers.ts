@@ -1,14 +1,3 @@
-type Coords = {
-  sourceX: number;
-  sourceY: number;
-  sourceWidth: number;
-  sourceHeight: number;
-  destinationX: number;
-  destinationY: number;
-  destinationWidth: number;
-  destinationHeight: number;
-};
-
 // [x, y, width, height]
 export const characterMap = {
   a: [0, 0, 4, 6],
@@ -85,6 +74,17 @@ export const getTotalTimeInMinsAndSecs = (totalTime: number): string => {
   const minutes = Math.floor((totalTime / 60) % 60);
 
   return `${getTime1s(minutes)}:${getTime10s(seconds)}${getTime1s(seconds)}`;
+};
+
+type Coords = {
+  sourceX: number;
+  sourceY: number;
+  sourceWidth: number;
+  sourceHeight: number;
+  destinationX: number;
+  destinationY: number;
+  destinationWidth: number;
+  destinationHeight: number;
 };
 
 export const drawImageOnCanvas = (imageMap: string, canvas: HTMLCanvasElement, coords: Coords, clear = true): void => {
