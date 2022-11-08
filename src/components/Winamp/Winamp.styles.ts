@@ -31,7 +31,7 @@ export const Wrapper = styled.div<Props>`
   .mono-stereo {
     position: absolute;
     top: 39px;
-    right: 8px;
+    right: 7px;
   }
 
   .time-display {
@@ -79,7 +79,7 @@ export const Wrapper = styled.div<Props>`
   .shuf-rep-buttons {
     position: absolute;
     top: 89px;
-    left: 167px;
+    left: 164px;
   }
 `;
 

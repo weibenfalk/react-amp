@@ -18,19 +18,19 @@ type Props = {
   className?: string;
 };
 
-const REPEAT_BUTTON_WIDTH = 27;
-const SHUFFLE_BUTTON_WIDTH = 46;
+const REPEAT_BUTTON_WIDTH = 28;
+const SHUFFLE_BUTTON_WIDTH = 47;
 const BUTTON_HEIGHT = 15;
 const PADDING = 1;
 
 const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false, isActive = false) => {
   const buttonWidth = position === 0 ? REPEAT_BUTTON_WIDTH : SHUFFLE_BUTTON_WIDTH;
-  const sourceX = position === 0 ? 0 : REPEAT_BUTTON_WIDTH + PADDING;
+  const sourceX = position === 0 ? 0 : REPEAT_BUTTON_WIDTH;
 
   const startSourceY = isActive ? BUTTON_HEIGHT * 2 : 0;
 
   drawImageOnCanvas(shufRepImageMap, canvas, {
-    sourceX, // Need to add position to compensate for the padding in the image
+    sourceX,
     sourceY: startSourceY + (isClicked ? BUTTON_HEIGHT : 0),
     sourceWidth: buttonWidth,
     sourceHeight: BUTTON_HEIGHT,
@@ -43,8 +43,6 @@ const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked =
 
 const ShufRepButton = ({ type, active, clickHandler, className = '' }: Props) => {
   const [isClicked, setIsClicked] = React.useState(false);
-
-  console.log('re-render');
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
