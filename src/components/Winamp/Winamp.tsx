@@ -157,7 +157,7 @@ const Winamp = () => {
           clickHandler={() => setIsShuffle(prev => !prev)}
         />
       </div>
-      {analyser && analyser.analyser && analyser.dataArray ? (
+      {analyser && analyser.analyser && analyser.dataArray && (isPlaying || isPaused) ? (
         <div onClick={handleVisualisationChange}>
           <AudioVisualiser
             className='spectrum-analyser'
@@ -183,7 +183,9 @@ const Winamp = () => {
         <TextCanvas text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
       <MonoStereo className='mono-stereo' />
-      <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
+      {isPlaying || isPaused ? (
+        <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
+      ) : null}
       <VolumeControl
         className='volume-control'
         volume={volume}
