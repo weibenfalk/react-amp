@@ -15,6 +15,7 @@ import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
 // Helpers
 import { getTotalTimeInMinsAndSecs } from 'helpers';
+import { volumeKnobMap } from 'imageMaps';
 // Tracks
 import { tracks } from 'tracks';
 // Types
@@ -179,7 +180,14 @@ const Winamp = () => {
         isDraggingVolume={isDraggingVolume}
         setIsDraggingVolume={setIsDraggingVolume}
       />
-      <RangeSlider width={400} height={10} />
+      <RangeSlider
+        knobImages={volumeKnobMap}
+        width={400}
+        height={10}
+        value={playTime}
+        setValue={setPlayTime}
+        setIsDragging={setIsDraggingVolume}
+      />
     </Wrapper>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 // Image
 import { volumeImageMap } from 'imageImports';
+import { volumeBgMap } from 'imageMaps';
 // Helpers
 import { drawImageOnCanvas } from 'helpers';
 // Styles
@@ -22,6 +23,8 @@ type Props = {
 const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolume, className }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const handleRef = React.useRef<HTMLCanvasElement>(null);
+
+  console.log(volumeBgMap);
 
   const drawVolumeBar = (x: number, pressed = false) => {
     if (handleRef.current && canvasRef.current) {
@@ -53,7 +56,7 @@ const VolumeControl = ({ volume, setVolume, isDraggingVolume, setIsDraggingVolum
       // Draw volumebar
       drawImageOnCanvas(volumeImageMap, canvasRef.current, {
         sourceX: 0,
-        sourceY: 1 * Math.floor(volume / 0.0358) * (VOLUMEBAR_HEIGHT + PADDING),
+        sourceY: Math.floor(volume / 0.0358) * (VOLUMEBAR_HEIGHT + PADDING),
         sourceWidth: VOLUMEBAR_WIDTH,
         sourceHeight: VOLUMEBAR_HEIGHT,
         destinationX: 0,

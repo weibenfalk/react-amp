@@ -3,42 +3,64 @@ import React from 'react';
 import { useGetImagesDataUrl } from 'hooks/useGetImagesDataUrl';
 // Styles
 import { Wrapper } from './RangeSlider.styles';
-// Image
-import { imagesCoords } from 'imagesCoords';
+// Types
+import { ImageMapType } from 'imageMaps';
 
 type Props = {
+  knobImages: ImageMapType;
   width: number;
   height: number;
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+  setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
+  min?: number;
+  max?: number;
+  step?: number;
+  className?: string;
 };
 
-const IMAGES = [imagesCoords.scrubHandle, imagesCoords.scrubHandleClicked];
+const RangeSlider = ({
+  knobImages,
+  width,
+  height,
+  value,
+  setValue,
+  setIsDragging,
+  min = 0,
+  max = 100,
+  step = 1,
+  className
+}: Props) => {
+  const [knob, knobClicked] = useGetImagesDataUrl(knobImages);
+  const [clicked, setClicked] = React.useState(false);
 
-const RangeSlider = ({ width, height }: Props) => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const handleMouseDown = () => {
+    setClicked(true);
+    setIsDragging(true);
+  };
 
-  const [handle] = useGetImagesDataUrl(IMAGES);
+  const handleMouseUp = () => {
+    setClicked(false);
+    setIsDragging(false);
+  };
 
-  console.log(handle);
+  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(event.currentTarget.value));
+  };
 
   return (
-    <Wrapper image={handle}>
+    <Wrapper image={clicked ? knobClicked : knob} width={width} height={height}>
       <input
+        className={className}
         type='range'
-        min='0'
-        max='100'
-        step='1'
-        // value={volume}
-        className='range'
-        // onChange={(e) => setVolume(Number(e.target.value))}
-        // onMouseDown={() => setFocus("volume")}
-        // onTouchStart={() => {
-        //   setFocus("volume");
-        // }}
-        // onMouseUp={unsetFocus}
-        // onTouchEnd={unsetFocus}
-        // title="Volume Bar"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={handleValueChange}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
       />
-      {/* <canvas ref={canvasRef} width={width} height={height} /> */}
     </Wrapper>
   );
 };

@@ -3,14 +3,16 @@ import styled from 'styled-components';
 
 type Props = {
   image: string;
+  width: number;
+  height: number;
 };
 
 export const Wrapper = styled.div<Props>`
   input[type='range'] {
     -webkit-appearance: none;
-    width: 400px;
-    height: 10px;
-    
+    width: ${props => `${props.width}px`};
+    height: ${props => `${props.height}px`};
+
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       background-image: ${props => `url('${props.image}')`};

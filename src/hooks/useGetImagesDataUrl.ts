@@ -1,4 +1,6 @@
 import React from 'react';
+// Types
+import { ImageMapType } from 'imageMaps';
 
 export type ImageCoordsType = {
   imageMap: string;
@@ -8,7 +10,7 @@ export type ImageCoordsType = {
   height: number;
 };
 
-export const useGetImagesDataUrl = (images: Array<ImageCoordsType>) => {
+export const useGetImagesDataUrl = (imageMap: ImageMapType) => {
   const [imgDataUrl, setImgDataUrl] = React.useState([] as Array<string>);
 
   React.useEffect(() => {
@@ -20,13 +22,13 @@ export const useGetImagesDataUrl = (images: Array<ImageCoordsType>) => {
 
       const decodeImage = async () => {
         const dataUrlImages = [] as Array<string>;
+        const image = new Image();
+        image.src = imageMap.imageMap;
 
-        for (const imageObject of images) {
+        for (const imageObject of imageMap.images) {
           canvas.width = imageObject.width;
           canvas.height = imageObject.height;
 
-          const image = new Image();
-          image.src = imageObject.imageMap;
           await image.decode();
 
           context.drawImage(
@@ -50,7 +52,7 @@ export const useGetImagesDataUrl = (images: Array<ImageCoordsType>) => {
     };
 
     getDataUrl();
-  }, [images]);
+  }, [imageMap]);
 
   return imgDataUrl;
 };
