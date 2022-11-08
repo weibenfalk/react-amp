@@ -14,14 +14,10 @@ const TextDisplay = ({ text, isScroll = true, className = '' }: Props) => (
     {!isScroll ? <TextCanvas text={text} /> : null}
 
     <div style={{ opacity: isScroll ? 1 : 0 }} className='container'>
-      <TextCanvas text={text} />
-      <TextCanvas text={text} />
-      <TextCanvas text={text} />
+      <TextCanvas text={text + text + text} />
     </div>
     <div style={{ opacity: isScroll ? 1 : 0 }} className='container'>
-      <TextCanvas text={text} />
-      <TextCanvas text={text} />
-      <TextCanvas text={text} />
+      <TextCanvas text={text + text + text} />
     </div>
   </Wrapper>
 );
