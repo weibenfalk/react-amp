@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  .handle {
+  position: relative;
+
+  .background {
     position: absolute;
-    image-rendering: crisp-edges;
-    top: 1.5px;
+    top: 2.5px;
+    left: 2px;
+    z-index: 0;
+  }
+
+  .slider {
+    position: absolute;
+    top: 0;
+    z-index: 1;
   }
 `;

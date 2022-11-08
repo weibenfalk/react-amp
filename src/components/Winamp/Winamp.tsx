@@ -9,8 +9,6 @@ import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 import VolumeControl from 'components/VolumeControl/VolumeControl';
 import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
 import TextCanvas from 'components/TextCanvas/TextCanvas';
-import RangeSlider from 'components/RangeSlider/RangeSlider';
-import NewVolumeControl from 'components/NewVolumeControl/NewVolumeControl';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -174,27 +172,12 @@ const Winamp = () => {
       {isPlaying || isPaused ? (
         <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
       ) : null}
-      {/* <VolumeControl
+      <VolumeControl
         className='volume-control'
         volume={volume}
         setVolume={setVolume}
         isDraggingVolume={isDraggingVolume}
         setIsDraggingVolume={setIsDraggingVolume}
-      /> */}
-      <NewVolumeControl
-        className='volume-control'
-        volume={volume}
-        setVolume={setVolume}
-        isDraggingVolume={isDraggingVolume}
-        setIsDraggingVolume={setIsDraggingVolume}
-      />
-      <RangeSlider
-        knobImages={volumeKnobMap}
-        width={400}
-        height={10}
-        value={playTime}
-        setValue={setPlayTime}
-        setIsDragging={setIsDraggingVolume}
       />
     </Wrapper>
   );

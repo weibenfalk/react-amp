@@ -21,7 +21,7 @@ const VolumeControl = ({ volume, setVolume, setIsDraggingVolume, className }: Pr
 
   return (
     <Wrapper className={className}>
-      <img className='background' src={bgImages[Math.floor(volume / 0.0358)]} />
+      <img className="background" src={bgImages[Math.floor(volume / 0.0358)]} />
       <RangeSlider
         className='slider'
         knobImages={volumeKnobMap}

@@ -36,8 +36,8 @@ export const Wrapper = styled.div<Props>`
 
   .volume-control {
     position: absolute;
-    top: 57px;
-    left: 107px;
+    top: 55px;
+    left: 105px;
   }
 
   .text-scroll {
