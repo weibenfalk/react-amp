@@ -60,6 +60,7 @@ export const Wrapper = styled.div<Props>`
 
   .shuf-rep-buttons {
     position: absolute;
+    display: flex;
     top: 89px;
     left: 164px;
   }

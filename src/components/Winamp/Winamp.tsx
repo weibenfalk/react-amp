@@ -104,17 +104,21 @@ const Winamp = () => {
     }
   };
 
-  const handleVisualisationChange = () => {
-    setIsBars(prev => !prev);
+  const handleOnEnd = () => {
+    if (audioRef.current && isRepeat) {
+      audioRef.current.currentTime = 0;
+      play();
+      return;
+    }
+
+    handleTrackChange(trackNr < tracks.length - 1);
   };
+
+  const handleVisualisationChange = () => setIsBars(prev => !prev);
 
   return (
     <Wrapper isPaused={isPaused}>
-      <audio
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={() => handleTrackChange(trackNr < tracks.length - 1)}
-        ref={audioRef}
-      >
+      <audio onTimeUpdate={handleTimeUpdate} onEnded={handleOnEnd} ref={audioRef}>
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>
@@ -132,6 +136,11 @@ const Winamp = () => {
           type={ShufRepButtonType.shuffle}
           active={isShuffle}
           clickHandler={() => setIsShuffle(prev => !prev)}
+        />
+        <ShufRepButton
+          type={ShufRepButtonType.repeat}
+          active={isRepeat}
+          clickHandler={() => setIsRepeat(prev => !prev)}
         />
       </div>
       {analyser && analyser.analyser && analyser.dataArray && (isPlaying || isPaused) ? (
