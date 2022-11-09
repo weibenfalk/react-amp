@@ -7,6 +7,7 @@ import TextDisplay from 'components/TextDisplay/TextDisplay';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 import VolumeControl from 'components/VolumeControl/VolumeControl';
+import PanControl from 'components/PanControl/PanControl';
 import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
 import TextCanvas from 'components/TextCanvas/TextCanvas';
 import Scrubber from 'components/Scrubber/Scrubber';
@@ -28,18 +29,23 @@ import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 const Winamp = () => {
   const audioRef = React.useRef<HTMLMediaElement>(null);
 
-  const { context, source, play, stop, pause } = useCreateAudio(audioRef);
+  const { context, source, panNode, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
   const { currentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
 
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
   const callbacks = useCallbacks(audioRef, tracks, trackNr, play, pause, stop);
 
+  const [panValue, setPanValue] = React.useState(0);
+
   React.useEffect(() => {
     if (audioRef.current) {
+      // Volume
       audioRef.current.volume = metrics.volume;
+      // Panning
+      panNode?.pan.setValueAtTime(panValue, metrics.playtime);
     }
-  }, [metrics.volume]);
+  }, [metrics.volume, panValue, metrics.playtime]);
 
   return (
     <Wrapper isPaused={flags.isPaused}>
@@ -102,6 +108,12 @@ const Winamp = () => {
         volume={metrics.volume}
         setVolume={volume => setMetrics(prev => ({ ...prev, volume }))}
         setIsDraggingVolume={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
+      />
+      <PanControl
+        className='balance-control'
+        panValue={panValue}
+        setPanValue={setPanValue}
+        setIsDraggingBalance={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
       />
       <Scrubber
         className='scrubber'

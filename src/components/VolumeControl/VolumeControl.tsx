@@ -1,4 +1,3 @@
-import React from 'react';
 // Components
 import RangeSlider from 'components/RangeSlider/RangeSlider';
 // Hooks

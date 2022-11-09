@@ -28,14 +28,16 @@ const createImages = (
   height: number,
   totalAmount: number,
   padding: number,
-  xOrY: 'x' | 'y' = 'y'
+  xOrY: 'x' | 'y' = 'y',
+  x = 0,
+  y = 0,
 ): Array<ImageCoordsType> => {
   const images = [];
 
   for (let i = 0; i < totalAmount; i++) {
     images.push({
-      x: xOrY === 'x' ? i * (width + padding) : 0,
-      y: xOrY === 'y' ? i * (height + padding) : 0,
+      x: xOrY === 'x' ? i * (width + padding) : x,
+      y: xOrY === 'y' ? i * (height + padding) : y,
       width: width,
       height: height
     });
@@ -43,6 +45,29 @@ const createImages = (
 
   return images;
 };
+
+export const balanceKnobMap: ImageMapType = {
+  imageMap: balanceImageMap as string,
+  images: [
+    {
+      x: 15,
+      y: 422,
+      width: 14,
+      height: 11
+    },
+    {
+      x: 0,
+      y: 422,
+      width: 14,
+      height: 11
+    }
+  ] 
+}
+
+export const balanceBgMap: ImageMapType = {
+  imageMap: balanceImageMap as string,
+  images: createImages(38, 14, 28, 1, "y", 9)
+}
 
 export const scrubberBgMap: ImageMapType = {
   imageMap: posBarImageMap as string,

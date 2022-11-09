@@ -46,6 +46,12 @@ export const Wrapper = styled.div<Props>`
     left: 105px;
   }
 
+  .balance-control {
+    position: absolute;
+    top: 55px;
+    right: 100px;
+  }
+
   .text-scroll {
     position: absolute;
     top: 27px;
