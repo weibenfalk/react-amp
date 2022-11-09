@@ -44,6 +44,36 @@ const createImages = (
   return images;
 };
 
+export const scrubberBgMap: ImageMapType = {
+  imageMap: posBarImageMap as string,
+  images: [
+    {
+      x: 0,
+      y: 0,
+      width: 249,
+      height: 10
+    }
+  ]
+};
+
+export const scrubberMap: ImageMapType = {
+  imageMap: posBarImageMap as string,
+  images: [
+    {
+      x: 249,
+      y: 0,
+      width: 28,
+      height: 10
+    },
+    {
+      x: 279,
+      y: 0,
+      width: 28,
+      height: 10
+    }
+  ]
+};
+
 export const numbersMap: ImageMapType = {
   imageMap: numbersImageMap,
   images: [

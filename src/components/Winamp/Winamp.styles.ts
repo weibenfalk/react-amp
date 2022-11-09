@@ -10,6 +10,12 @@ export const Wrapper = styled.div<Props>`
   width: 275px;
   height: 116px;
 
+  .scrubber {
+    position: absolute;
+    bottom: 46px;
+    left: 14px;
+  }
+
   .mono-stereo {
     position: absolute;
     top: 39px;

@@ -11,11 +11,12 @@ type Props = {
   width: number;
   height: number;
   value: number;
-  setValue: React.Dispatch<React.SetStateAction<number>>;
-  setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
   min?: number;
   max?: number;
   step?: number;
+  handleMouseDown?: (value: number) => void;
+  handleMouseUp?: (value: number) => void;
+  handleOnChange?: (value: number) => void;
   className?: string;
 };
 
@@ -24,28 +25,29 @@ const RangeSlider = ({
   width,
   height,
   value,
-  setValue,
-  setIsDragging,
   min = 0,
   max = 100,
   step = 1,
+  handleMouseDown,
+  handleMouseUp,
+  handleOnChange,
   className
 }: Props) => {
   const [knob, knobClicked] = useGetImagesDataUrl(knobImages);
   const [clicked, setClicked] = React.useState(false);
 
-  const handleMouseDown = () => {
+  const onMouseDown = (event: React.MouseEvent<HTMLInputElement>) => {
     setClicked(true);
-    setIsDragging(true);
+    if (handleMouseDown) handleMouseDown(Number(event.currentTarget.value));
   };
 
-  const handleMouseUp = () => {
+  const onMouseUp = (event: React.MouseEvent<HTMLInputElement>) => {
     setClicked(false);
-    setIsDragging(false);
+    if (handleMouseUp) handleMouseUp(Number(event.currentTarget.value));
   };
 
-  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(event.currentTarget.value));
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (handleOnChange) handleOnChange(Number(event.currentTarget.value))
   };
 
   return (
@@ -63,9 +65,9 @@ const RangeSlider = ({
         max={max}
         step={step}
         value={value}
-        onChange={handleValueChange}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
+        onChange={onChange}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
       />
     </Wrapper>
   );

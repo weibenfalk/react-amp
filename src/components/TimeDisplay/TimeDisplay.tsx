@@ -10,16 +10,16 @@ import { Wrapper } from './TimeDisplay.styles';
 
 type Props = {
   totalTime: number;
-  playTime: number;
+  playtime: number;
   className?: string;
 };
 
-const TimeDisplay = ({ totalTime, playTime, className = '' }: Props) => {
+const TimeDisplay = ({ totalTime, playtime, className = '' }: Props) => {
   const [isTimeLeft, setIsTimeLeft] = React.useState(false);
 
   const numbers = useGetImagesDataUrl(numbersMap);
 
-  const displayedTime = isTimeLeft ? totalTime - playTime : playTime;
+  const displayedTime = isTimeLeft ? totalTime - playtime : playtime;
 
   const seconds = displayedTime % 60;
   const minutes = Math.floor((displayedTime / 60) % 60);

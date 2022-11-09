@@ -11,7 +11,6 @@ import { Wrapper } from './VolumeControl.styles';
 type Props = {
   volume: number;
   setVolume: React.Dispatch<React.SetStateAction<number>>;
-  isDraggingVolume: boolean;
   setIsDraggingVolume: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
 };
@@ -19,9 +18,12 @@ type Props = {
 const VolumeControl = ({ volume, setVolume, setIsDraggingVolume, className }: Props) => {
   const bgImages = useGetImagesDataUrl(volumeBgMap);
 
+  const handleMouseDown = (): void => setIsDraggingVolume(true);
+  const handleMouseUp = (): void => setIsDraggingVolume(false);
+
   return (
     <Wrapper className={className}>
-      <img className="background" src={bgImages[Math.floor(volume / 0.0358)]} />
+      <img className='background' src={bgImages[Math.floor(volume / 0.0358)]} />
       <RangeSlider
         className='slider'
         knobImages={volumeKnobMap}
@@ -31,8 +33,9 @@ const VolumeControl = ({ volume, setVolume, setIsDraggingVolume, className }: Pr
         max={1}
         step={0.01}
         value={volume}
-        setValue={setVolume}
-        setIsDragging={setIsDraggingVolume}
+        handleOnChange={setVolume}
+        handleMouseDown={handleMouseDown}
+        handleMouseUp={handleMouseUp}
       />
     </Wrapper>
   );

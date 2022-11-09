@@ -9,6 +9,7 @@ import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
 import VolumeControl from 'components/VolumeControl/VolumeControl';
 import AudioVisualiser from 'components/AudioVisualiser/AudioVisualiser';
 import TextCanvas from 'components/TextCanvas/TextCanvas';
+import Scrubber from 'components/Scrubber/Scrubber';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
@@ -30,10 +31,10 @@ const Winamp = () => {
   const [isPaused, setIsPaused] = React.useState(false);
   const [volume, setVolume] = React.useState(1);
   const [isBars, setIsBars] = React.useState(true);
-  const [isDraggingVolume, setIsDraggingVolume] = React.useState(false);
+  const [isDragging, setIsDragging] = React.useState(false);
   const [isShuffle, setIsShuffle] = React.useState(false);
   const [isRepeat, setIsRepeat] = React.useState(false);
-  const [playTime, setPlayTime] = React.useState(0);
+  const [playtime, setPlaytime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
 
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
@@ -98,7 +99,7 @@ const Winamp = () => {
       const roundedTime = Math.floor(audioRef.current.currentTime);
       const roundedTotalTime = Math.floor(audioRef.current.duration);
 
-      setPlayTime(roundedTime);
+      setPlaytime(roundedTime);
       setTotalTime(roundedTotalTime);
     }
   };
@@ -111,6 +112,12 @@ const Winamp = () => {
     }
 
     handleTrackChange(trackNr < tracks.length - 1);
+  };
+
+  const handleScrubRelease = (value: number) => {
+    const _playTime = (value / 100) * totalTime;
+    if (audioRef.current) audioRef.current.currentTime = _playTime;
+    setPlaytime(_playTime);
   };
 
   const handleVisualisationChange = () => setIsBars(prev => !prev);
@@ -157,11 +164,11 @@ const Winamp = () => {
       <TextDisplay
         className='text-scroll'
         text={
-          isDraggingVolume
+          isDragging
             ? `Volume: ${Math.round(volume * 100)}%`
             : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(totalTime)}) *** `
         }
-        isScroll={!isDraggingVolume}
+        isScroll={!isDragging}
       />
       <FrequenciesWrapper>
         <TextCanvas text={currentTrack.bitRate.toString()} />
@@ -169,14 +176,22 @@ const Winamp = () => {
       </FrequenciesWrapper>
       <MonoStereo stereo={true} className='mono-stereo' />
       {isPlaying || isPaused ? (
-        <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
+        <TimeDisplay className='time-display' totalTime={totalTime} playtime={playtime} />
       ) : null}
       <VolumeControl
         className='volume-control'
         volume={volume}
         setVolume={setVolume}
-        isDraggingVolume={isDraggingVolume}
-        setIsDraggingVolume={setIsDraggingVolume}
+        setIsDraggingVolume={setIsDragging}
+      />
+      <Scrubber
+        className='scrubber'
+        playtime={playtime}
+        totalTime={totalTime}
+        isDraggingScrubber={isDragging}
+        setIsDraggingScrubber={setIsDragging}
+        displayHandle={isPlaying || isPaused}
+        handleScrubRelease={handleScrubRelease}
       />
     </Wrapper>
   );
