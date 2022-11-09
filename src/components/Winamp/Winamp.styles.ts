@@ -61,7 +61,7 @@ export const Wrapper = styled.div<Props>`
   .shuf-rep-buttons {
     position: absolute;
     display: flex;
-    top: 89px;
+    top: 88.5px;
     left: 164px;
   }
 `;

@@ -7,6 +7,6 @@ export const Wrapper = styled.div`
 
   .eject-button {
     padding-top: 0.5px;
-    padding-left: 6px;
+    padding-left: 5px;
   }
 `;

@@ -6,7 +6,8 @@ import {
   mainImageMap,
   titleBarImageMap,
   playPauseImageMap,
-  controlButtonsImageMap
+  controlButtonsImageMap,
+  shufRepImageMap
 } from 'imageImports';
 
 export type ImageCoordsType = {
@@ -34,6 +35,60 @@ const createImages = (width: number, height: number, totalAmount: number, paddin
   }
 
   return images;
+};
+
+export const shufRepMap: ImageMapType = {
+  imageMap: shufRepImageMap as string,
+  images: [
+    {
+      x: 0,
+      y: 0,
+      width: 29,
+      height: 15
+    },
+    {
+      x: 0,
+      y: 15,
+      width: 29,
+      height: 15
+    },
+    {
+      x: 0,
+      y: 30,
+      width: 29,
+      height: 15
+    },
+    {
+      x: 0,
+      y: 45,
+      width: 29,
+      height: 15
+    },
+    {
+      x: 28,
+      y: 0,
+      width: 47,
+      height: 15
+    },
+    {
+      x: 28,
+      y: 15,
+      width: 47,
+      height: 15
+    },
+    {
+      x: 28,
+      y: 30,
+      width: 47,
+      height: 15
+    },
+    {
+      x: 28,
+      y: 45,
+      width: 47,
+      height: 15
+    }
+  ]
 };
 
 export const controlButtonsMap: ImageMapType = {
