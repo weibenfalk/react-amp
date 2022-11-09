@@ -10,8 +10,8 @@ import { Wrapper } from './VolumeControl.styles';
 
 type Props = {
   volume: number;
-  setVolume: React.Dispatch<React.SetStateAction<number>>;
-  setIsDraggingVolume: React.Dispatch<React.SetStateAction<boolean>>;
+  setVolume: (volume: number) => void;
+  setIsDraggingVolume: (isDragging: boolean) => void;
   className?: string;
 };
 

@@ -13,6 +13,8 @@ import Scrubber from 'components/Scrubber/Scrubber';
 // Hooks
 import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
+import { useCallbacks } from './useCallbacks';
+import { useStateContext } from 'context';
 // Helpers
 import { getTotalTimeInMinsAndSecs } from 'helpers';
 // Tracks
@@ -26,174 +28,90 @@ import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 const Winamp = () => {
   const audioRef = React.useRef<HTMLMediaElement>(null);
 
-  const [currentTrack, setCurrentTrack] = React.useState(tracks[0]);
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  const [isPaused, setIsPaused] = React.useState(false);
-  const [volume, setVolume] = React.useState(1);
-  const [isBars, setIsBars] = React.useState(true);
-  const [isDragging, setIsDragging] = React.useState(false);
-  const [isShuffle, setIsShuffle] = React.useState(false);
-  const [isRepeat, setIsRepeat] = React.useState(false);
-  const [playtime, setPlaytime] = React.useState(0);
-  const [scrubtime, setScrubtime] = React.useState(0);
-  const [totalTime, setTotalTime] = React.useState(0);
-
+  
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
+  const { currentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
+  
+  const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
+  const callbacks = useCallbacks(audioRef, tracks, trackNr, play, pause, stop);
 
   React.useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume;
+      audioRef.current.volume = metrics.volume;
     }
-  }, [volume]);
-
-  const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
-
-  const handlePlay = () => {
-    play();
-    // If we're already playing a track, rewind to start of song when pressing play
-    if (isPlaying && audioRef.current) audioRef.current.currentTime = 0;
-    setIsPlaying(true);
-    setIsPaused(false);
-  };
-
-  const handleStop = () => {
-    setIsPlaying(false);
-    setIsPaused(false);
-    stop();
-  };
-
-  const handlePause = () => {
-    if (isPlaying) {
-      pause();
-      setIsPlaying(false);
-      setIsPaused(true);
-      return;
-    }
-
-    play();
-    setIsPlaying(true);
-    setIsPaused(false);
-  };
-
-  const handleTrackChange = (shouldChangeTrack: boolean, forward = true): void => {
-    if (isShuffle) {
-      const randomTrackNr = Math.floor(Math.random() * tracks.length);
-      const newTrack = tracks[randomTrackNr];
-      setCurrentTrack(newTrack);
-    } else if (shouldChangeTrack) {
-      const newTrack = forward ? tracks[trackNr + 1] : tracks[trackNr - 1];
-      setCurrentTrack(newTrack);
-    }
-
-    audioRef.current?.load();
-
-    if (isPlaying || isPaused) {
-      play();
-      setIsPaused(false);
-      setIsPlaying(true);
-    }
-  };
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const roundedTime = Math.floor(audioRef.current.currentTime);
-      const roundedTotalTime = Math.floor(audioRef.current.duration);
-
-      setPlaytime(roundedTime);
-      if (!isDragging) setScrubtime(roundedTime);
-      // TODO: Is this necessary?!?
-      setTotalTime(roundedTotalTime);
-    }
-  };
-
-  const handleOnEnd = () => {
-    if (audioRef.current && isRepeat) {
-      audioRef.current.currentTime = 0;
-      play();
-      return;
-    }
-
-    handleTrackChange(trackNr < tracks.length - 1);
-  };
-
-  const handleScrubRelease = (value: number) => {
-    const _playTime = (value / 100) * totalTime;
-    if (audioRef.current) audioRef.current.currentTime = _playTime;
-  };
-
-  const handleVisualisationChange = () => setIsBars(prev => !prev);
+  }, [metrics.volume]);
 
   return (
-    <Wrapper isPaused={isPaused}>
-      <audio onTimeUpdate={handleTimeUpdate} onEnded={handleOnEnd} ref={audioRef}>
+    <Wrapper isPaused={flags.isPaused}>
+      <audio onTimeUpdate={callbacks.handleTimeUpdate} onEnded={callbacks.handleOnEnd} ref={audioRef}>
         <source src={currentTrack.file} />
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <BaseImages isPlaying={isPlaying} isPaused={isPaused} />
+      <BaseImages isPlaying={flags.isPlaying} isPaused={flags.isPaused} />
       <ControlButtonGroup
         className='button-group'
-        handlePlay={handlePlay}
-        handleStop={handleStop}
-        handlePause={handlePause}
-        handlePreviousTrack={() => handleTrackChange(trackNr > 0, false)}
-        handleNextTrack={() => handleTrackChange(trackNr < tracks.length - 1)}
+        handlePlay={callbacks.handlePlay}
+        handleStop={callbacks.handleStop}
+        handlePause={callbacks.handlePause}
+        handlePreviousTrack={() => callbacks.handleTrackChange(trackNr > 0, false)}
+        handleNextTrack={() => callbacks.handleTrackChange(trackNr < tracks.length - 1)}
       />
       <div className='shuf-rep-buttons'>
         <ShufRepButton
           type={ShufRepButtonType.shuffle}
-          active={isShuffle}
-          clickHandler={() => setIsShuffle(prev => !prev)}
+          active={flags.isShuffle}
+          clickHandler={() => setFlags(prev => ({ ...prev, isShuffle: !prev.isShuffle }))}
         />
         <ShufRepButton
           type={ShufRepButtonType.repeat}
-          active={isRepeat}
-          clickHandler={() => setIsRepeat(prev => !prev)}
+          active={flags.isRepeat}
+          clickHandler={() => setFlags(prev => ({ ...prev, isRepeat: !prev.isRepeat }))}
         />
       </div>
-      {analyser && analyser.analyser && analyser.dataArray && (isPlaying || isPaused) ? (
-        <div onClick={handleVisualisationChange}>
+      {analyser && analyser.analyser && analyser.dataArray && (flags.isPlaying || flags.isPaused) ? (
+        <div onClick={callbacks.handleVisualisationChange}>
           <AudioVisualiser
             className='spectrum-analyser'
-            isPlaying={isPlaying}
+            isPlaying={flags.isPlaying}
             analyser={analyser.analyser}
             dataArray={analyser.dataArray}
             bufferLength={analyser.bufferLength}
-            type={isBars ? VisualiserType.BAR : VisualiserType.OSC}
+            type={flags.isBars ? VisualiserType.BAR : VisualiserType.OSC}
           />
         </div>
       ) : null}
       <TextDisplay
         className='text-scroll'
         text={
-          isDragging
-            ? `Volume: ${Math.round(volume * 100)}%`
-            : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(totalTime)}) *** `
+          flags.isDragging
+            ? `Volume: ${Math.round(metrics.volume * 100)}%`
+            : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(metrics.totalTime)}) *** `
         }
-        isScroll={!isDragging}
+        isScroll={!flags.isDragging}
       />
       <FrequenciesWrapper>
         <TextCanvas text={currentTrack.bitRate.toString()} />
         <TextCanvas text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
       <MonoStereo stereo={true} className='mono-stereo' />
-      {isPlaying || isPaused ? (
-        <TimeDisplay className='time-display' totalTime={totalTime} playtime={playtime} />
+      {flags.isPlaying || flags.isPaused ? (
+        <TimeDisplay className='time-display' totalTime={metrics.totalTime} playtime={metrics.playtime} />
       ) : null}
       <VolumeControl
         className='volume-control'
-        volume={volume}
-        setVolume={setVolume}
-        setIsDraggingVolume={setIsDragging}
+        volume={metrics.volume}
+        setVolume={volume => setMetrics(prev => ({ ...prev, volume }))}
+        setIsDraggingVolume={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
       />
       <Scrubber
         className='scrubber'
-        scrubtime={scrubtime}
-        setScrubtime={setScrubtime}
-        totalTime={totalTime}
-        setIsDraggingScrubber={setIsDragging}
-        displayHandle={isPlaying || isPaused}
-        handleScrubRelease={handleScrubRelease}
+        scrubtime={metrics.scrubtime}
+        setScrubtime={scrubtime => setMetrics(prev => ({ ...prev, scrubtime }))}
+        totalTime={metrics.totalTime}
+        setIsDraggingScrubber={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
+        displayHandle={flags.isPlaying || flags.isPaused}
+        handleScrubRelease={callbacks.handleScrubRelease}
       />
     </Wrapper>
   );

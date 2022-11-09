@@ -10,9 +10,9 @@ import { Wrapper } from './Scrubber.styles';
 
 type Props = {
   scrubtime: number;
-  setScrubtime: React.Dispatch<React.SetStateAction<number>>;
+  setScrubtime: (scrubtime: number) => void;
   totalTime: number;
-  setIsDraggingScrubber: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDraggingScrubber: (isDragging: boolean) => void;
   displayHandle: boolean;
   handleScrubRelease: (value: number) => void;
   className?: string;
