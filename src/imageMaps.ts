@@ -7,7 +7,8 @@ import {
   titleBarImageMap,
   playPauseImageMap,
   controlButtonsImageMap,
-  shufRepImageMap
+  shufRepImageMap,
+  numbersImageMap
 } from 'imageImports';
 
 export type ImageCoordsType = {
@@ -22,19 +23,38 @@ export type ImageMapType = {
   images: Array<ImageCoordsType>;
 };
 
-const createImages = (width: number, height: number, totalAmount: number, padding: number): Array<ImageCoordsType> => {
+const createImages = (
+  width: number,
+  height: number,
+  totalAmount: number,
+  padding: number,
+  xOrY: 'x' | 'y' = 'y'
+): Array<ImageCoordsType> => {
   const images = [];
 
   for (let i = 0; i < totalAmount; i++) {
     images.push({
-      x: 0,
-      y: i * (height + padding),
+      x: xOrY === 'x' ? i * (width + padding) : 0,
+      y: xOrY === 'y' ? i * (height + padding) : 0,
       width: width,
       height: height
     });
   }
 
   return images;
+};
+
+export const numbersMap: ImageMapType = {
+  imageMap: numbersImageMap,
+  images: [
+    ...createImages(9, 13, 10, 0, 'x'),
+    {
+      x: 19,
+      y: 6,
+      width: 5,
+      height: 1
+    }
+  ]
 };
 
 export const shufRepMap: ImageMapType = {

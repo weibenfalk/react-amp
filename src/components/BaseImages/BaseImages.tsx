@@ -17,10 +17,10 @@ const BaseImages = ({ isPlaying, isPaused }: Props) => {
 
   return (
     <Wrapper>
-      <img className='' src={main} />
-      <img className='title-bar' src={titleBar} />
-      <img className='display-buttons' src={displayMenu} />
-      <img className='play-pause-stop' src={isPlaying ? play : isPaused ? pause : stop} />
+      <img draggable="false" className='' src={main} />
+      <img draggable="false" className='title-bar' src={titleBar} />
+      <img draggable="false" className='display-buttons' src={displayMenu} />
+      <img draggable="false" className='play-pause-stop' src={isPlaying ? play : isPaused ? pause : stop} />
     </Wrapper>
   );
 };

@@ -35,6 +35,7 @@ const ShufRepButton = ({ type, active, clickHandler, className = '' }: Props) =>
   return (
     <Wrapper className={className}>
       <img
+        draggable='false'
         src={buttons[isClicked ? buttonToShow + 1 : buttonToShow]}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}

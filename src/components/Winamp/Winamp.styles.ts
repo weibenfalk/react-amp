@@ -19,7 +19,7 @@ export const Wrapper = styled.div<Props>`
   .time-display {
     position: absolute;
     top: 26px;
-    left: 37px;
+    left: 38px;
     animation: ${props => (props.isPaused ? 'blink-animation 2s steps(2, start) infinite' : 'none')};
 
     @keyframes blink-animation {

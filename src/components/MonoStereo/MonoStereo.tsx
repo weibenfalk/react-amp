@@ -16,8 +16,8 @@ const MonoStereo = ({ mono = false, stereo = true, className = '' }: Props) => {
 
   return (
     <Wrapper className={className}>
-      <img src={images[mono ? 2 : 3]} />
-      <img src={images[stereo ? 0 : 1]} />
+      <img draggable="false" src={images[mono ? 2 : 3]} />
+      <img draggable="false" src={images[stereo ? 0 : 1]} />
     </Wrapper>
   );
 };

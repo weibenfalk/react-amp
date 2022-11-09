@@ -1,8 +1,12 @@
 import React from 'react';
 // Image
-import { numbersImageMap } from 'imageImports';
+import { numbersMap } from 'imageMaps';
+// Hooks
+import { useGetImagesDataUrl } from 'hooks/useGetImagesDataUrl';
 // Helpers
 import { getTime1s, getTime10s } from 'helpers';
+// Styles
+import { Wrapper } from './TimeDisplay.styles';
 
 type Props = {
   totalTime: number;
@@ -10,11 +14,10 @@ type Props = {
   className?: string;
 };
 
-const NUMBER_WIDTH = 9;
-const NUMBER_HEIGHT = 13;
-
 const TimeDisplay = ({ totalTime, playTime, className = '' }: Props) => {
   const [isTimeLeft, setIsTimeLeft] = React.useState(false);
+
+  const numbers = useGetImagesDataUrl(numbersMap);
 
   const displayedTime = isTimeLeft ? totalTime - playTime : playTime;
 
@@ -24,71 +27,13 @@ const TimeDisplay = ({ totalTime, playTime, className = '' }: Props) => {
   const handleClick = () => setIsTimeLeft(prev => !prev);
 
   return (
-    <>
-      <canvas
-        onClick={handleClick}
-        className={className}
-        ref={canvas => {
-          const digitCoords = [
-            {
-              sourceX: NUMBER_WIDTH * getTime10s(minutes),
-              destinationX: 0
-            },
-            {
-              sourceX: NUMBER_WIDTH * getTime1s(minutes),
-              destinationX: NUMBER_WIDTH + 3
-            },
-            {
-              sourceX: NUMBER_WIDTH * getTime10s(seconds),
-              destinationX: NUMBER_WIDTH * 2 + 10
-            },
-            {
-              sourceX: NUMBER_WIDTH * getTime1s(seconds),
-              destinationX: NUMBER_WIDTH * 3 + 13
-            }
-          ];
-
-          if (canvas) {
-            const image = document.createElement('img');
-            image.src = numbersImageMap;
-
-            image.onload = () => {
-              const context = canvas.getContext('2d');
-
-              if (context) {
-                // Clear minus if time is not set to display remaining time
-                context.clearRect(0, 0, 7, 15);
-
-                if (context && isTimeLeft) {
-                  context.globalAlpha = 1;
-                  context.beginPath();
-                  context.moveTo(2, 6.5);
-                  context.lineTo(7, 6.5);
-                  context.strokeStyle = '#00e800';
-                  context.stroke();
-                }
-                
-                digitCoords.forEach(digit => {
-                  context.drawImage(
-                    image,
-                    digit.sourceX,
-                    0,
-                    NUMBER_WIDTH,
-                    NUMBER_HEIGHT,
-                    digit.destinationX + 12,
-                    0,
-                    NUMBER_WIDTH,
-                    NUMBER_HEIGHT
-                  );
-                });
-              }
-            };
-          }
-        }}
-        width={61}
-        height={15}
-      />
-    </>
+    <Wrapper className={className} onClick={handleClick} isTimeLeft={isTimeLeft}>
+      <img draggable="false" className='minus' src={numbers[10]} />
+      <img draggable="false" src={numbers[getTime10s(minutes)]} />
+      <img draggable="false" src={numbers[getTime1s(minutes)]} />
+      <img draggable="false" src={numbers[getTime10s(seconds)]} />
+      <img draggable="false" src={numbers[getTime1s(seconds)]} />
+    </Wrapper>
   );
 };
 
