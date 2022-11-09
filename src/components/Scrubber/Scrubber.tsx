@@ -9,9 +9,9 @@ import { scrubberMap, scrubberBgMap } from 'imageMaps';
 import { Wrapper } from './Scrubber.styles';
 
 type Props = {
-  playtime: number;
+  scrubtime: number;
+  setScrubtime: React.Dispatch<React.SetStateAction<number>>;
   totalTime: number;
-  isDraggingScrubber: boolean;
   setIsDraggingScrubber: React.Dispatch<React.SetStateAction<boolean>>;
   displayHandle: boolean;
   handleScrubRelease: (value: number) => void;
@@ -19,34 +19,23 @@ type Props = {
 };
 
 const Scrubber = ({
-  playtime,
+  scrubtime,
+  setScrubtime,
   totalTime,
-  isDraggingScrubber,
   setIsDraggingScrubber,
   displayHandle,
   handleScrubRelease,
   className
 }: Props) => {
   const [bgImage] = useGetImagesDataUrl(scrubberBgMap);
-  const [handlePos, setHandlePos] = React.useState(0);
 
   const handleMouseUp = (value: number) => {
     handleScrubRelease(value);
     setIsDraggingScrubber(false);
   };
 
-  const handleMouseDown = (value: number) => setIsDraggingScrubber(true);
-
-  React.useEffect(() => {
-    if (!isDraggingScrubber) {
-      if (!playtime || !totalTime) {
-        setHandlePos(0);
-        return;
-      }
-
-      setHandlePos(Math.round((playtime / totalTime) * 100));
-    }
-  }, [playtime, totalTime]);
+  const handleOnChange = (value: number) => setScrubtime((value / 100) * totalTime);
+  const handleMouseDown = () => setIsDraggingScrubber(true);
 
   return (
     <Wrapper className={className}>
@@ -60,8 +49,8 @@ const Scrubber = ({
           min={0}
           max={100}
           step={1}
-          value={handlePos}
-          handleOnChange={setHandlePos}
+          value={!scrubtime || !totalTime ? 0 : Math.round((scrubtime / totalTime) * 100)}
+          handleOnChange={handleOnChange}
           handleMouseUp={handleMouseUp}
           handleMouseDown={handleMouseDown}
         />

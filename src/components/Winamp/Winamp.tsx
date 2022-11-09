@@ -35,6 +35,7 @@ const Winamp = () => {
   const [isShuffle, setIsShuffle] = React.useState(false);
   const [isRepeat, setIsRepeat] = React.useState(false);
   const [playtime, setPlaytime] = React.useState(0);
+  const [scrubtime, setScrubtime] = React.useState(0);
   const [totalTime, setTotalTime] = React.useState(0);
 
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
@@ -100,6 +101,8 @@ const Winamp = () => {
       const roundedTotalTime = Math.floor(audioRef.current.duration);
 
       setPlaytime(roundedTime);
+      if (!isDragging) setScrubtime(roundedTime);
+      // TODO: Is this necessary?!?
       setTotalTime(roundedTotalTime);
     }
   };
@@ -117,7 +120,6 @@ const Winamp = () => {
   const handleScrubRelease = (value: number) => {
     const _playTime = (value / 100) * totalTime;
     if (audioRef.current) audioRef.current.currentTime = _playTime;
-    setPlaytime(_playTime);
   };
 
   const handleVisualisationChange = () => setIsBars(prev => !prev);
@@ -186,9 +188,9 @@ const Winamp = () => {
       />
       <Scrubber
         className='scrubber'
-        playtime={playtime}
+        scrubtime={scrubtime}
+        setScrubtime={setScrubtime}
         totalTime={totalTime}
-        isDraggingScrubber={isDragging}
         setIsDraggingScrubber={setIsDragging}
         displayHandle={isPlaying || isPaused}
         handleScrubRelease={handleScrubRelease}
