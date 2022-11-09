@@ -28,11 +28,10 @@ import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 const Winamp = () => {
   const audioRef = React.useRef<HTMLMediaElement>(null);
 
-  
   const { context, source, play, stop, pause } = useCreateAudio(audioRef);
   const analyser = useCreateAnalyser(context, source);
   const { currentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
-  
+
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
   const callbacks = useCallbacks(audioRef, tracks, trackNr, play, pause, stop);
 
