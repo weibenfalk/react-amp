@@ -10,6 +10,8 @@ type Props = {
 };
 
 export const Wrapper = styled.div<Props>`
+  user-select: none;
+  
   input[type='range'] {
     -webkit-appearance: none;
     background: transparent;

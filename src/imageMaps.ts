@@ -1,5 +1,5 @@
 // Image
-import { posBarImageMap, volumeImageMap } from 'imageImports';
+import { posBarImageMap, volumeImageMap, monoStereoImageMap } from 'imageImports';
 
 export type ImageCoordsType = {
   x: number;
@@ -27,6 +27,36 @@ const createImages = (width: number, height: number, totalAmount: number, paddin
 
   return images;
 };
+
+export const monoStereoMap = {
+  imageMap: monoStereoImageMap as string,
+  images: [
+    {
+      x: 0,
+      y: 0,
+      width: 29,
+      height: 12
+    },
+    {
+      x: 0,
+      y: 12,
+      width: 29,
+      height: 12
+    },
+    {
+      x: 29,
+      y: 0,
+      width: 29,
+      height: 12
+    },
+    {
+      x: 29,
+      y: 12,
+      width: 29,
+      height: 12
+    },
+  ]
+}
 
 export const volumeKnobMap = {
   imageMap: volumeImageMap as string,

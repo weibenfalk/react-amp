@@ -14,7 +14,6 @@ import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
 // Helpers
 import { getTotalTimeInMinsAndSecs } from 'helpers';
-import { volumeKnobMap } from 'imageMaps';
 // Tracks
 import { tracks } from 'tracks';
 // Types
