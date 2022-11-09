@@ -1,6 +1,6 @@
 import React from 'react';
 // Image
-import { textImageMap } from 'imageImports';
+import textImageMap from 'assets/TEXT.BMP';
 // CharacterMap
 import { characterMap } from 'helpers';
 

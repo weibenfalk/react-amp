@@ -22,7 +22,7 @@ type Props = {
 };
 
 export const StateContextProvider = ({ children }: Props) => {
-  const [currentTrack, setCurrentTrack] = React.useState(tracks[0]);
+  const [currentTrack, setCurrentTrack] = React.useState(() => tracks[0]);
   const [flags, setFlags] = React.useState(() => initialStateFlags);
   const [metrics, setMetrics] = React.useState(() => initialStateMetrics);
 
