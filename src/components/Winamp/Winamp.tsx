@@ -167,7 +167,7 @@ const Winamp = () => {
         <TextCanvas text={currentTrack.bitRate.toString()} />
         <TextCanvas text={currentTrack.sampleRate.toString()} />
       </FrequenciesWrapper>
-      <MonoStereo className='mono-stereo' />
+      <MonoStereo stereo={true} className='mono-stereo' />
       {isPlaying || isPaused ? (
         <TimeDisplay className='time-display' totalTime={totalTime} playTime={playTime} />
       ) : null}

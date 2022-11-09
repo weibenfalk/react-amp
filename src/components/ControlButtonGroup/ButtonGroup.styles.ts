@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   gap: 1px;
 
   .eject-button {
-    padding-top: 1px;
+    padding-top: 0.5px;
     padding-left: 6px;
   }
 `;

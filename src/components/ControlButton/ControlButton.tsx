@@ -1,18 +1,18 @@
 import React from 'react';
-// Image map
-import { controlButtonsImageMap } from 'imageImports';
-// Helpers
-import { drawImageOnCanvas } from 'helpers';
+// Image
+import { controlButtonsMap } from 'imageMaps';
+// Hooks
+import { useGetImagesDataUrl } from 'hooks/useGetImagesDataUrl';
 // Styles
 import { Wrapper } from './ControlButton.styles';
 
 export enum ControlButtonType {
-  previous,
-  play,
-  pause,
-  stop,
-  next,
-  eject
+  previous = 0,
+  play = 2,
+  pause = 4,
+  stop = 6,
+  next = 8,
+  eject = 10
 }
 
 type Props = {
@@ -21,52 +21,26 @@ type Props = {
   className?: string;
 };
 
-const BUTTON_WIDTH = 22;
-const BUTTON_HEIGHT = 17;
-const EJECT_BUTTON_HEIGHT = 15;
-const PADDING = 1;
-
-const drawButtonOnCanvas = (canvas: HTMLCanvasElement, position = 0, isClicked = false) => {
-  const padding = position === 5 ? position - 1 * PADDING : position * PADDING;
-  const sourceX = BUTTON_WIDTH * position + padding;
-  const buttonHeight = position === 5 ? EJECT_BUTTON_HEIGHT : BUTTON_HEIGHT;
-
-  drawImageOnCanvas(controlButtonsImageMap, canvas, {
-    sourceX, // Need to add position to compensate for the padding in the image
-    sourceY: isClicked ? buttonHeight + PADDING : 0,
-    sourceWidth: BUTTON_WIDTH,
-    sourceHeight: buttonHeight,
-    destinationX: 0,
-    destinationY: 0,
-    destinationWidth: BUTTON_WIDTH,
-    destinationHeight: buttonHeight
-  });
-};
-
 const ControlButton = ({ type, clickHandler, className = '' }: Props) => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const [isClicked, setIsClicked] = React.useState(false);
+
+  const buttons = useGetImagesDataUrl(controlButtonsMap);
 
   const handleMouseDown = () => {
     if (clickHandler) clickHandler();
-    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type, true);
-  };
-  const handleMouseUp = () => {
-    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type, false);
+    setIsClicked(true);
   };
 
-  React.useEffect(() => {
-    if (canvasRef.current) drawButtonOnCanvas(canvasRef.current, type);
-  }, [type]);
+  const handleMouseUp = () => setIsClicked(false);
 
   return (
     <Wrapper className={className}>
-      <canvas
+      <img
+        draggable={false}
+        src={buttons[isClicked ? type + 1 : type]}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        ref={canvasRef}
-        width={BUTTON_WIDTH}
-        height={BUTTON_HEIGHT}
+        onMouseLeave={() => setIsClicked(false)}
       />
     </Wrapper>
   );

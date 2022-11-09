@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
     left: 0;
   }
 
-  .play-pause-button {
+  .play-pause-stop {
     position: absolute;
     top: 28px;
     left: 25px;

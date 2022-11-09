@@ -1,5 +1,13 @@
 // Image
-import { posBarImageMap, volumeImageMap, monoStereoImageMap } from 'imageImports';
+import {
+  posBarImageMap,
+  volumeImageMap,
+  monoStereoImageMap,
+  mainImageMap,
+  titleBarImageMap,
+  playPauseImageMap,
+  controlButtonsImageMap
+} from 'imageImports';
 
 export type ImageCoordsType = {
   x: number;
@@ -28,7 +36,139 @@ const createImages = (width: number, height: number, totalAmount: number, paddin
   return images;
 };
 
-export const monoStereoMap = {
+export const controlButtonsMap: ImageMapType = {
+  imageMap: controlButtonsImageMap as string,
+  images: [
+    {
+      x: 0,
+      y: 0,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 0,
+      y: 18,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 23,
+      y: 0,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 23,
+      y: 18,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 46,
+      y: 0,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 46,
+      y: 18,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 69,
+      y: 0,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 69,
+      y: 18,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 92,
+      y: 0,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 92,
+      y: 18,
+      width: 22,
+      height: 18
+    },
+    {
+      x: 114,
+      y: 0,
+      width: 22,
+      height: 16
+    },
+    {
+      x: 114,
+      y: 16,
+      width: 22,
+      height: 16
+    }
+  ]
+};
+
+export const playPauseStopMap: ImageMapType = {
+  imageMap: playPauseImageMap,
+  images: [
+    {
+      x: 0,
+      y: 0,
+      width: 9,
+      height: 9
+    },
+    {
+      x: 9,
+      y: 0,
+      width: 9,
+      height: 9
+    },
+    {
+      x: 18,
+      y: 0,
+      width: 9,
+      height: 9
+    }
+  ]
+};
+
+export const titleBarMap: ImageMapType = {
+  imageMap: titleBarImageMap as string,
+  images: [
+    {
+      x: 27,
+      y: 0,
+      width: 275,
+      height: 14
+    },
+    {
+      x: 305,
+      y: 0,
+      width: 7,
+      height: 43
+    }
+  ]
+};
+
+export const mainMap: ImageMapType = {
+  imageMap: mainImageMap as string,
+  images: [
+    {
+      x: 0,
+      y: 0,
+      width: 275,
+      height: 116
+    }
+  ]
+};
+
+export const monoStereoMap: ImageMapType = {
   imageMap: monoStereoImageMap as string,
   images: [
     {
@@ -54,11 +194,11 @@ export const monoStereoMap = {
       y: 12,
       width: 29,
       height: 12
-    },
+    }
   ]
-}
+};
 
-export const volumeKnobMap = {
+export const volumeKnobMap: ImageMapType = {
   imageMap: volumeImageMap as string,
   images: [
     {
