@@ -76,6 +76,13 @@ export const Wrapper = styled.div<Props>`
     top: 88.5px;
     left: 164px;
   }
+
+  .eq-pl-buttons {
+    position: absolute;
+    display: flex;
+    top: 56px;
+    right: 11px;
+  }
 `;
 
 export const FrequenciesWrapper = styled.div`

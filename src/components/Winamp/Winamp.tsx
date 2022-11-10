@@ -3,6 +3,7 @@ import React from 'react';
 import BaseImages from 'components/BaseImages/BaseImages';
 import ControlButtonGroup from 'components/ControlButtonGroup/ButtonGroup';
 import ShufRepButton from 'components/ShufRepButton/ShufRepButton';
+import EqPlButton from 'components/EqPlButton/EqPlButton';
 import TextDisplay from 'components/TextDisplay/TextDisplay';
 import MonoStereo from 'components/MonoStereo/MonoStereo';
 import TimeDisplay from 'components/TimeDisplay/TimeDisplay';
@@ -23,6 +24,7 @@ import { tracks } from 'tracks';
 // Types
 import { VisualiserType } from 'components/AudioVisualiser/AudioVisualiser';
 import { ShufRepButtonType } from 'components/ShufRepButton/ShufRepButton';
+import { EqPlButtonType } from 'components/EqPlButton/EqPlButton';
 // Styles
 import { Wrapper, FrequenciesWrapper } from './Winamp.styles';
 
@@ -70,6 +72,18 @@ const Winamp = () => {
           type={ShufRepButtonType.repeat}
           active={flags.isRepeat}
           clickHandler={() => setFlags(prev => ({ ...prev, isRepeat: !prev.isRepeat }))}
+        />
+      </div>
+      <div className='eq-pl-buttons'>
+        <EqPlButton
+          type={EqPlButtonType.eq}
+          active={false}
+          clickHandler={() => console.log("Eq Button!")}
+        />
+        <EqPlButton
+          type={EqPlButtonType.pl}
+          active={false}
+          clickHandler={() => console.log("Pl Button!")}
         />
       </div>
       {analyser && analyser.analyser && analyser.dataArray && (flags.isPlaying || flags.isPaused) ? (
