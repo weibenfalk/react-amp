@@ -27,16 +27,18 @@ export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any
     setFlags(prev => ({ ...prev, isPlaying: true, isPaused: false }));
   };
 
-  const handleTrackChange = (shouldChangeTrack: boolean, forward = true): void => {
+  const handleTrackChange = (newTrack: number): void => {
+    let _newTrack = 0;
+
+    if (newTrack === tracks.length) return;
+    if (newTrack > 0) _newTrack = newTrack;
+
     if (flags.isShuffle) {
       const randomTrackNr = Math.floor(Math.random() * tracks.length);
-      const newTrack = tracks[randomTrackNr];
-
-      setCurrentTrack(newTrack);
-    } else if (shouldChangeTrack) {
-      const newTrack = forward ? tracks[trackNr + 1] : tracks[trackNr - 1];
-      setCurrentTrack(newTrack);
+      _newTrack = tracks[randomTrackNr];
     }
+
+    setCurrentTrack(tracks[_newTrack]);
 
     audioRef.current?.load();
 
@@ -64,7 +66,7 @@ export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any
       return;
     }
 
-    handleTrackChange(trackNr < tracks.length - 1);
+    handleTrackChange(trackNr + 1);
   };
 
   const handleScrubRelease = (value: number) => {

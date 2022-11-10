@@ -2,9 +2,13 @@ export interface StateFlags {
   isPlaying: boolean;
   isPaused: boolean;
   isDragging: boolean;
+  isDraggingVolume: boolean;
+  isDraggingPan: boolean;
+  isDraggingScrubber: boolean;
   isShuffle: boolean;
   isRepeat: boolean;
   isBars: boolean;
+  isTimeLeft: boolean;
 };
 
 export interface StateMetrics {

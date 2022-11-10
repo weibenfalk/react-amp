@@ -5,9 +5,13 @@ export const initialStateFlags: StateFlags = {
   isPlaying: false,
   isPaused: false,
   isDragging: false,
+  isDraggingVolume: false,
+  isDraggingPan: false,
+  isDraggingScrubber: false,
   isShuffle: false,
   isRepeat: false,
-  isBars: true
+  isBars: true,
+  isTimeLeft: false
 };
 
 export const initialStateMetrics: StateMetrics = {

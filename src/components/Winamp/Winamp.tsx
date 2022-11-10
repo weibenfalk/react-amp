@@ -40,9 +40,7 @@ const Winamp = () => {
 
   React.useEffect(() => {
     if (audioRef.current) {
-      // Volume
       audioRef.current.volume = metrics.volume;
-      // Panning
       panNode?.pan.setValueAtTime(metrics.panValue, metrics.playtime);
     }
   }, [metrics.volume, metrics.panValue, metrics.playtime]);
@@ -59,8 +57,8 @@ const Winamp = () => {
         handlePlay={callbacks.handlePlay}
         handleStop={callbacks.handleStop}
         handlePause={callbacks.handlePause}
-        handlePreviousTrack={() => callbacks.handleTrackChange(trackNr > 0, false)}
-        handleNextTrack={() => callbacks.handleTrackChange(trackNr < tracks.length - 1)}
+        handlePreviousTrack={() => callbacks.handleTrackChange(trackNr - 1)}
+        handleNextTrack={() => callbacks.handleTrackChange(trackNr + 1)}
       />
       <div className='shuf-rep-buttons'>
         <ShufRepButton
@@ -75,16 +73,8 @@ const Winamp = () => {
         />
       </div>
       <div className='eq-pl-buttons'>
-        <EqPlButton
-          type={EqPlButtonType.eq}
-          active={false}
-          clickHandler={() => console.log("Eq Button!")}
-        />
-        <EqPlButton
-          type={EqPlButtonType.pl}
-          active={false}
-          clickHandler={() => console.log("Pl Button!")}
-        />
+        <EqPlButton type={EqPlButtonType.eq} active={false} clickHandler={() => console.log('Eq Button!')} />
+        <EqPlButton type={EqPlButtonType.pl} active={false} clickHandler={() => console.log('Pl Button!')} />
       </div>
       {analyser && analyser.analyser && analyser.dataArray && (flags.isPlaying || flags.isPaused) ? (
         <div onClick={callbacks.handleVisualisationChange}>
@@ -101,11 +91,17 @@ const Winamp = () => {
       <TextDisplay
         className='text-scroll'
         text={
-          flags.isDragging
+          flags.isDraggingVolume
             ? `Volume: ${Math.round(metrics.volume * 100)}%`
+            : flags.isDraggingPan
+            ? `Balance: ${metrics.panValue === 0 ? '' : Math.abs(Math.round(metrics.panValue * 100)) + '%'} ${
+                metrics.panValue < 0 ? 'Left' : metrics.panValue === 0 ? 'center' : 'right'
+              }`
+            : flags.isDraggingScrubber
+            ? 'Seek to:'
             : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(metrics.totalTime)}) *** `
         }
-        isScroll={!flags.isDragging}
+        isScroll={!flags.isDraggingVolume && !flags.isDraggingPan && !flags.isDraggingScrubber}
       />
       <FrequenciesWrapper>
         <TextCanvas text={currentTrack.bitRate.toString()} />
@@ -113,26 +109,26 @@ const Winamp = () => {
       </FrequenciesWrapper>
       <MonoStereo stereo={true} className='mono-stereo' />
       {flags.isPlaying || flags.isPaused ? (
-        <TimeDisplay className='time-display' totalTime={metrics.totalTime} playtime={metrics.playtime} />
+        <TimeDisplay className='time-display' isTimeLeft={flags.isTimeLeft} setIsTimeLeft={isTimeLeft => setFlags(prev => ({ ...prev, isTimeLeft }))} totalTime={metrics.totalTime} playtime={metrics.playtime} />
       ) : null}
       <VolumeControl
         className='volume-control'
         volume={metrics.volume}
         setVolume={volume => setMetrics(prev => ({ ...prev, volume }))}
-        setIsDraggingVolume={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
+        setIsDraggingVolume={isDraggingVolume => setFlags(prev => ({ ...prev, isDraggingVolume }))}
       />
       <PanControl
         className='balance-control'
         panValue={metrics.panValue}
         setPanValue={panValue => setMetrics(prev => ({ ...prev, panValue }))}
-        setIsDraggingBalance={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
+        setIsDraggingBalance={isDraggingPan => setFlags(prev => ({ ...prev, isDraggingPan }))}
       />
       <Scrubber
         className='scrubber'
         scrubtime={metrics.scrubtime}
         setScrubtime={scrubtime => setMetrics(prev => ({ ...prev, scrubtime }))}
         totalTime={metrics.totalTime}
-        setIsDraggingScrubber={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
+        setIsDraggingScrubber={isDraggingScrubber => setFlags(prev => ({ ...prev, isDraggingScrubber }))}
         displayHandle={flags.isPlaying || flags.isPaused}
         handleScrubRelease={callbacks.handleScrubRelease}
       />
