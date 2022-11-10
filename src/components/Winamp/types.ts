@@ -12,6 +12,7 @@ export interface StateMetrics {
   playtime: number;
   scrubtime: number;
   totalTime: number;
+  panValue: number;
 };
 
 export interface Track {

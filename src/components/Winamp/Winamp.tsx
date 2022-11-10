@@ -36,16 +36,14 @@ const Winamp = () => {
   const trackNr = tracks.findIndex(track => track.title === currentTrack.title);
   const callbacks = useCallbacks(audioRef, tracks, trackNr, play, pause, stop);
 
-  const [panValue, setPanValue] = React.useState(0);
-
   React.useEffect(() => {
     if (audioRef.current) {
       // Volume
       audioRef.current.volume = metrics.volume;
       // Panning
-      panNode?.pan.setValueAtTime(panValue, metrics.playtime);
+      panNode?.pan.setValueAtTime(metrics.panValue, metrics.playtime);
     }
-  }, [metrics.volume, panValue, metrics.playtime]);
+  }, [metrics.volume, metrics.panValue, metrics.playtime]);
 
   return (
     <Wrapper isPaused={flags.isPaused}>
@@ -111,8 +109,8 @@ const Winamp = () => {
       />
       <PanControl
         className='balance-control'
-        panValue={panValue}
-        setPanValue={setPanValue}
+        panValue={metrics.panValue}
+        setPanValue={panValue => setMetrics(prev => ({ ...prev, panValue }))}
         setIsDraggingBalance={isDragging => setFlags(prev => ({ ...prev, isDragging }))}
       />
       <Scrubber
