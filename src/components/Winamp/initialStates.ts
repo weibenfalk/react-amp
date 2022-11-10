@@ -14,5 +14,6 @@ export const initialStateMetrics: StateMetrics = {
   volume: 1,
   playtime: 0,
   scrubtime: 0,
-  totalTime: 0
+  totalTime: 0,
+  panValue: 0
 };

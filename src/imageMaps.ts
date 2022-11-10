@@ -30,7 +30,7 @@ const createImages = (
   padding: number,
   xOrY: 'x' | 'y' = 'y',
   x = 0,
-  y = 0,
+  y = 0
 ): Array<ImageCoordsType> => {
   const images = [];
 
@@ -61,13 +61,67 @@ export const balanceKnobMap: ImageMapType = {
       width: 14,
       height: 11
     }
-  ] 
-}
+  ]
+};
+
+export const eqPlMap: ImageMapType = {
+  imageMap: shufRepImageMap as string,
+  images: [
+    {
+      x: 0,
+      y: 61,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 46,
+      y: 61,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 0,
+      y: 73,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 46,
+      y: 73,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 23,
+      y: 61,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 69,
+      y: 61,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 23,
+      y: 73,
+      width: 22,
+      height: 12
+    },
+    {
+      x: 69,
+      y: 73,
+      width: 22,
+      height: 12
+    }
+  ]
+};
 
 export const balanceBgMap: ImageMapType = {
   imageMap: balanceImageMap as string,
-  images: createImages(38, 14, 28, 1, "y", 9)
-}
+  images: createImages(38, 14, 28, 1, 'y', 9)
+};
 
 export const scrubberBgMap: ImageMapType = {
   imageMap: posBarImageMap as string,
