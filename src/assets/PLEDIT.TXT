@@ -1,6 +1,6 @@
 [Text]
-Normal=#00FF00
-Current=#FFFFFF
-NormalBG=#000000
-SelectedBG=#0000C6
-Font=Arial
+Normal=#000000
+Current=#333333
+NormalBG=#FFFFFF
+SelectedBG=#CCCCCC
+Font=Lucida Console

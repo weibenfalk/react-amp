@@ -1,4 +1,3 @@
-import React from 'react';
 // Image
 import { numbersMap } from 'imageMaps';
 // Hooks
