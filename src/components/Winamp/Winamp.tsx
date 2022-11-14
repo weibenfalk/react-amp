@@ -90,17 +90,7 @@ const Winamp = () => {
       ) : null}
       <TextDisplay
         className='text-scroll'
-        text={
-          flags.isDraggingVolume
-            ? `Volume: ${Math.round(metrics.volume * 100)}%`
-            : flags.isDraggingPan
-            ? `Balance: ${metrics.panValue === 0 ? '' : Math.abs(Math.round(metrics.panValue * 100)) + '%'} ${
-                metrics.panValue < 0 ? 'Left' : metrics.panValue === 0 ? 'center' : 'right'
-              }`
-            : flags.isDraggingScrubber
-            ? 'Seek to:'
-            : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(metrics.totalTime)}) *** `
-        }
+        text={callbacks.handleDisplayText()}
         isScroll={!flags.isDraggingVolume && !flags.isDraggingPan && !flags.isDraggingScrubber}
       />
       <FrequenciesWrapper>
@@ -109,7 +99,13 @@ const Winamp = () => {
       </FrequenciesWrapper>
       <MonoStereo stereo={true} className='mono-stereo' />
       {flags.isPlaying || flags.isPaused ? (
-        <TimeDisplay className='time-display' isTimeLeft={flags.isTimeLeft} setIsTimeLeft={isTimeLeft => setFlags(prev => ({ ...prev, isTimeLeft }))} totalTime={metrics.totalTime} playtime={metrics.playtime} />
+        <TimeDisplay
+          className='time-display'
+          isTimeLeft={flags.isTimeLeft}
+          setIsTimeLeft={isTimeLeft => setFlags(prev => ({ ...prev, isTimeLeft }))}
+          totalTime={metrics.totalTime}
+          playtime={metrics.playtime}
+        />
       ) : null}
       <VolumeControl
         className='volume-control'

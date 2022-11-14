@@ -1,8 +1,23 @@
 // Context
 import { useStateContext } from 'context';
+import { getTotalTimeInMinsAndSecs } from 'helpers';
 
 export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any, pause: any, stop: any) => {
-  const { setCurrentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
+  const { currentTrack, setCurrentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
+
+  const handleDisplayText = () => {
+    return flags.isDraggingVolume
+      ? `Volume: ${Math.round(metrics.volume * 100)}%`
+      : flags.isDraggingPan
+      ? `Balance: ${
+          (metrics.panValue < 0.2 && metrics.panValue >= 0) || (metrics.panValue > -0.2 && metrics.panValue < 0)
+            ? ''
+            : Math.abs(Math.round(metrics.panValue * 100)) + '%'
+        } ${metrics.panValue < 0 ? 'Left' : metrics.panValue === 0 ? 'center' : 'right'}`
+      : flags.isDraggingScrubber
+      ? 'Seek to:'
+      : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(metrics.totalTime)}) *** `;
+  };
 
   const handlePlay = () => {
     play();
@@ -77,6 +92,7 @@ export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any
   const handleVisualisationChange = () => setFlags(prev => ({ ...prev, isBars: !prev.isBars }));
 
   return {
+    handleDisplayText,
     handlePlay,
     handleStop,
     handlePause,
