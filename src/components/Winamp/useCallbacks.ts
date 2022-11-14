@@ -6,6 +6,9 @@ export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any
   const { currentTrack, setCurrentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
 
   const handleDisplayText = () => {
+    const percentPlayed = Math.round((metrics.scrubtime / metrics.totalTime) * 100);
+    const totalTime = getTotalTimeInMinsAndSecs(metrics.totalTime);
+
     return flags.isDraggingVolume
       ? `Volume: ${Math.round(metrics.volume * 100)}%`
       : flags.isDraggingPan
@@ -15,8 +18,10 @@ export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any
             : Math.abs(Math.round(metrics.panValue * 100)) + '%'
         } ${metrics.panValue < 0 ? 'Left' : metrics.panValue === 0 ? 'center' : 'right'}`
       : flags.isDraggingScrubber
-      ? 'Seek to:'
-      : `${currentTrack.title} - ${currentTrack.artist} (${getTotalTimeInMinsAndSecs(metrics.totalTime)}) *** `;
+      ? `Seek to: ${getTotalTimeInMinsAndSecs(
+          (metrics.scrubtime / metrics.totalTime) * metrics.totalTime
+        )}/${totalTime} (${percentPlayed}%)`
+      : `${currentTrack.title} - ${currentTrack.artist} (${totalTime}) *** `;
   };
 
   const handlePlay = () => {
