@@ -1,8 +1,10 @@
 // Context
 import { useStateContext } from 'context';
 import { getTotalTimeInMinsAndSecs } from 'helpers';
+// Types
+import type { Track } from './types';
 
-export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any, pause: any, stop: any) => {
+export const useCallbacks = (audioRef: any, tracks: Track[], trackNr: any, play: any, pause: any, stop: any) => {
   const { currentTrack, setCurrentTrack, flags, setFlags, metrics, setMetrics } = useStateContext();
 
   const handleDisplayText = () => {
@@ -49,13 +51,16 @@ export const useCallbacks = (audioRef: any, tracks: any, trackNr: any, play: any
 
   const handleTrackChange = (newTrack: number): void => {
     let _newTrack = 0;
-
-    if (newTrack === tracks.length) return;
-    if (newTrack > 0) _newTrack = newTrack;
-
+    
     if (flags.isShuffle) {
-      const randomTrackNr = Math.floor(Math.random() * tracks.length);
-      _newTrack = tracks[randomTrackNr];
+      let randomTrackNr = trackNr;
+
+      while (randomTrackNr === trackNr) randomTrackNr = Math.floor(Math.random() * tracks.length);
+      _newTrack = randomTrackNr;
+    } else if (newTrack === tracks.length) {
+      return;
+    } else if (newTrack > 0) {
+      _newTrack = newTrack;
     }
 
     setCurrentTrack(tracks[_newTrack]);
