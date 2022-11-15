@@ -1,4 +1,6 @@
 import React from 'react';
+// Colors
+import colors from 'assets/VISCOLOR.TXT?raw';
 // Hooks
 import { useRequestAnimationFrame } from 'hooks/useRequestAnimationFrame';
 // Visualisertypes
@@ -21,6 +23,22 @@ type Props = {
 const CANVAS_WIDTH = 77;
 const CANVAS_HEIGHT = 14;
 
+const getColorsFromTextfile = (textfile: string): Array<string> => {
+  // First split by new line
+  const rows = textfile.split('\n');
+
+  const numberPattern = /\d+/g;
+  // Match the pattern from the regex and only return numbers
+  // Then just keep the 3 first numbers that are the RGB colors
+  // Lastly join them into a string instead of an array
+  const colorArray = rows.map(row => {
+    return row.match(numberPattern)?.splice(0, 3).join();
+  });
+
+  // We need the the 2:nd element in the array and counting from that 16 more elements for the color bars
+  return colorArray.splice(2, 16) as string[];
+};
+
 const AudioVisualiser = ({ isPlaying, analyser, dataArray, bufferLength, type, className = '' }: Props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
@@ -32,7 +50,7 @@ const AudioVisualiser = ({ isPlaying, analyser, dataArray, bufferLength, type, c
       analyser.current.getByteFrequencyData(dataArray.current);
 
       if (type === VisualiserType.BAR) {
-        renderBars(canvasRef.current, canvasCtx, dataArray.current);
+        renderBars(canvasRef.current, canvasCtx, dataArray.current, getColorsFromTextfile(colors));
       } else {
         analyser.current.getByteTimeDomainData(dataArray.current);
         renderOscilloscope(canvasRef.current, canvasCtx, dataArray.current, bufferLength.current);

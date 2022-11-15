@@ -40,7 +40,12 @@ const BAR_WIDTH = 3;
 const PEAK_HEIGHT = 1;
 const PEAK_ARRAY: Array<number> = new Array(BAR_COUNT).fill(0);
 
-export const renderBars = (canvas: HTMLCanvasElement, canvasCtx: CanvasRenderingContext2D, dataArray: Uint8Array) => {
+export const renderBars = (
+  canvas: HTMLCanvasElement,
+  canvasCtx: CanvasRenderingContext2D,
+  dataArray: Uint8Array,
+  colorBarColors: Array<string>
+) => {
   if (!canvas) return;
 
   // As the array with data has far more elements than the number of bars,
@@ -50,22 +55,9 @@ export const renderBars = (canvas: HTMLCanvasElement, canvasCtx: CanvasRendering
   canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
   const gradient = canvasCtx.createLinearGradient(0, 0, 0, 15);
-  gradient.addColorStop(1 / 16, 'rgb(239,49,16)');
-  gradient.addColorStop(2 / 16, 'rgb(206,41,16)');
-  gradient.addColorStop(3 / 16, 'rgb(214,90,0)');
-  gradient.addColorStop(4 / 16, 'rgb(214,102,0)');
-  gradient.addColorStop(5 / 16, 'rgb(214,115,0)');
-  gradient.addColorStop(6 / 16, 'rgb(198,123,8)');
-  gradient.addColorStop(7 / 16, 'rgb(222,165,24)');
-  gradient.addColorStop(8 / 16, 'rgb(214,181,33)');
-  gradient.addColorStop(9 / 16, 'rgb(189,222,41)');
-  gradient.addColorStop(10 / 16, 'rgb(148,222,33)');
-  gradient.addColorStop(11 / 16, 'rgb(41,206,16)');
-  gradient.addColorStop(12 / 16, 'rgb(50,190,16)');
-  gradient.addColorStop(13 / 16, 'rgb(57,181,16)');
-  gradient.addColorStop(14 / 16, 'rgb(49,156,8)');
-  gradient.addColorStop(15 / 16, 'rgb(41,148,0)');
-  gradient.addColorStop(16 / 16, 'rgb(24,132,8)');
+
+  // Apply colors provided from the textfile from the theme
+  colorBarColors.forEach((color, i) => gradient.addColorStop((i + 1) / colorBarColors.length, `rgb(${color})`));
 
   for (var i = 0; i < BAR_COUNT; i++) {
     const barPos = i * 4;
