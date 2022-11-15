@@ -6,7 +6,9 @@ export const renderOscilloscope = (
 ) => {
   if (!canvas) return;
 
-  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+  canvasCtx.fillStyle = 'transparent';
   canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
   canvasCtx.lineWidth = 1;
