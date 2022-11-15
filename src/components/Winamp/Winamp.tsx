@@ -17,8 +17,6 @@ import { useCreateAudio } from 'hooks/useCreateAudio';
 import { useCreateAnalyser } from 'hooks/useCreateAnalyser';
 import { useCallbacks } from './useCallbacks';
 import { useStateContext } from 'context';
-// Helpers
-import { getTotalTimeInMinsAndSecs } from 'helpers';
 // Tracks
 import { tracks } from 'tracks';
 // Types
