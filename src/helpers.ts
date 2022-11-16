@@ -69,9 +69,9 @@ export const characterMap = {
 export const getTime1s = (value: number) => Math.floor(value % 10);
 export const getTime10s = (value: number) => Math.floor(value / 10) % 60;
 
-export const getTotalTimeInMinsAndSecs = (totalTime: number): string => {
+export const getTotalTimeInMinsAndSecs = (totalTime: number, trailingZero: boolean = true): string => {
   const seconds = totalTime % 60;
   const minutes = Math.floor((totalTime / 60) % 60);
 
-  return `${getTime1s(minutes)}:${getTime10s(seconds)}${getTime1s(seconds)}`;
+  return `${trailingZero ? getTime10s(minutes) : ''}${getTime1s(minutes)}:${getTime10s(seconds)}${getTime1s(seconds)}`;
 };

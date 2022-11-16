@@ -9,7 +9,8 @@ export const useCallbacks = (audioRef: any, tracks: Track[], trackNr: any, play:
 
   const handleDisplayText = () => {
     const percentPlayed = Math.round((metrics.scrubtime / metrics.totalTime) * 100);
-    const totalTime = getTotalTimeInMinsAndSecs(metrics.totalTime);
+    const totalTimeWithZero = getTotalTimeInMinsAndSecs(metrics.totalTime);
+    const totalTimeWithoutZero = getTotalTimeInMinsAndSecs(metrics.totalTime, false);
 
     return flags.isDraggingVolume
       ? `Volume: ${Math.round(metrics.volume * 100)}%`
@@ -22,8 +23,8 @@ export const useCallbacks = (audioRef: any, tracks: Track[], trackNr: any, play:
       : flags.isDraggingScrubber
       ? `Seek to: ${getTotalTimeInMinsAndSecs(
           (metrics.scrubtime / metrics.totalTime) * metrics.totalTime
-        )}/${totalTime} (${percentPlayed}%)`
-      : `${currentTrack.title} - ${currentTrack.artist} (${totalTime}) *** `;
+        )}/${totalTimeWithZero} (${percentPlayed}%)`
+      : `${currentTrack.title} - ${currentTrack.artist} (${totalTimeWithoutZero}) *** `;
   };
 
   const handlePlay = () => {
@@ -51,7 +52,7 @@ export const useCallbacks = (audioRef: any, tracks: Track[], trackNr: any, play:
 
   const handleTrackChange = (newTrack: number): void => {
     let _newTrack = 0;
-    
+
     if (flags.isShuffle) {
       let randomTrackNr = trackNr;
 
