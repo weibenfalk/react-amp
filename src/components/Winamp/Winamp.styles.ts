@@ -73,14 +73,14 @@ export const Wrapper = styled.div<Props>`
   .shuf-rep-buttons {
     position: absolute;
     display: flex;
-    top: 88.5px;
-    left: 164px;
+    top: 89px;
+    left: 165px;
   }
 
   .eq-pl-buttons {
     position: absolute;
     display: flex;
-    top: 56px;
+    top: 55.5px;
     right: 11px;
   }
 `;

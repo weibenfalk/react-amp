@@ -70,25 +70,25 @@ export const eqPlMap: ImageMapType = {
     {
       x: 0,
       y: 61,
-      width: 22,
+      width: 23,
       height: 12
     },
     {
       x: 46,
       y: 61,
-      width: 22,
+      width: 23,
       height: 12
     },
     {
       x: 0,
       y: 73,
-      width: 22,
+      width: 23,
       height: 12
     },
     {
       x: 46,
       y: 73,
-      width: 22,
+      width: 23,
       height: 12
     },
     {
@@ -172,25 +172,25 @@ export const shufRepMap: ImageMapType = {
     {
       x: 0,
       y: 0,
-      width: 29,
+      width: 28,
       height: 15
     },
     {
       x: 0,
       y: 15,
-      width: 29,
+      width: 28,
       height: 15
     },
     {
       x: 0,
       y: 30,
-      width: 29,
+      width: 28,
       height: 15
     },
     {
       x: 0,
       y: 45,
-      width: 29,
+      width: 28,
       height: 15
     },
     {
