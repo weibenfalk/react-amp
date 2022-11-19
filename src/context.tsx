@@ -36,7 +36,7 @@ export const StateContextProvider = ({ children }: Props) => {
 export const useStateContext = () => {
   const stateContext = React.useContext(StateContext);
 
-  if (!stateContext) throw new Error('You need to use this hook inside a context provider');
+  if (!stateContext) throw new Error('You need to use this hook inside a context provider!');
 
   return stateContext;
 };
